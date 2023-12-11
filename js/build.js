@@ -146,8 +146,18 @@ Fliplet.Widget.instance({
         // alert('TODO apply filters');
 
         if (Fliplet.ListRepeater) {
+          // return Fliplet.ListRepeater.get().then(function(repeater) {
+          //   repeater.rows.query = query;
+          //   repeater.rows.update();
+          // });
+
           return Fliplet.ListRepeater.get().then(function(repeater) {
-            repeater.rows.query = query;
+            repeater.rows.query.where = query.where;
+
+            if (query.order) {
+              repeater.rows.query.order = query.order;
+            }
+
             repeater.rows.update();
           });
         }

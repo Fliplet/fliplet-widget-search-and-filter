@@ -143,19 +143,14 @@ Fliplet.Widget.instance({
       function applyFilters() {
         var query = collectQuery();
 
-        // alert('TODO apply filters');
+        // TODO apply filters
 
         if (Fliplet.ListRepeater) {
-          // return Fliplet.ListRepeater.get().then(function(repeater) {
-          //   repeater.rows.query = query;
-          //   repeater.rows.update();
-          // });
-
           return Fliplet.ListRepeater.get().then(function(repeater) {
             repeater.rows.query.where = query.where;
 
-            if (query.orderBy) {
-              repeater.rows.query.order = query.orderBy.order;
+            if (query.order) {
+              repeater.rows.query.order = query.order;
             }
 
             repeater.rows.update();
@@ -168,7 +163,7 @@ Fliplet.Widget.instance({
       }
 
       function applyBookmarkedDataAndFilters() {
-        // alert('TODO filter bookmarks data');
+        // TODO filter bookmarks data
 
         if (Fliplet.ListRepeater) {
           return Fliplet.ListRepeater.get().then(function(repeater) {
@@ -216,17 +211,9 @@ Fliplet.Widget.instance({
         );
 
         if (activeSortAsc.length) {
-          orderBy = {
-            order: [
-              [activeSortAsc.closest('.sort-option').data('column'), 'ASC']
-            ]
-          };
+          orderBy = [[`data.${activeSortAsc.closest('.sort-option').data('column')}`, 'ASC']];
         } else if (activeSortDesc.length) {
-          orderBy = {
-            order: [
-              [activeSortDesc.closest('.sort-option').data('column'), 'DESC']
-            ]
-          };
+          orderBy = [[`data.${activeSortDesc.closest('.sort-option').data('column')}`, 'DESC']];
         }
 
         if (orderBy) {

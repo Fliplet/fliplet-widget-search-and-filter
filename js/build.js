@@ -217,7 +217,7 @@ Fliplet.Widget.instance({
         }
 
         if (orderBy) {
-          query.orderBy = orderBy;
+          query.order = orderBy;
         }
         // END OF SORT ASC/DESC BY COLUMN
 

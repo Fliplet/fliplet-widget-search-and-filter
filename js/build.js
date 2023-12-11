@@ -144,13 +144,14 @@ Fliplet.Widget.instance({
         var query = collectQuery();
 
         // TODO apply filters
-
         if (Fliplet.ListRepeater) {
           return Fliplet.ListRepeater.get().then(function(repeater) {
             repeater.rows.query.where = query.where;
 
             if (query.order) {
               repeater.rows.query.order = query.order;
+            } else {
+              delete repeater.rows.query.order;
             }
 
             repeater.rows.update();

@@ -154,8 +154,8 @@ Fliplet.Widget.instance({
           return Fliplet.ListRepeater.get().then(function(repeater) {
             repeater.rows.query.where = query.where;
 
-            if (query.order) {
-              repeater.rows.query.order = query.order;
+            if (query.orderBy) {
+              repeater.rows.query.order = query.orderBy;
             }
 
             repeater.rows.update();

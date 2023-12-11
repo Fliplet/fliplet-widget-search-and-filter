@@ -59,7 +59,7 @@ Fliplet.Widget.instance({
       let screenAction = filterAndSearchContainer.fields.action;
       let isListOnDifferentScreen = filterAndSearchContainer.fields.isListOnDifferentScreen.includes(true);
 
-      var lfdPage = isListOnDifferentScreen ? screenAction.page : Fliplet.Env.get('pageId');
+      var lfdPage = isListOnDifferentScreen ? screenAction : Fliplet.Env.get('pageId');
 
       $(document)
         .find('.search-input')

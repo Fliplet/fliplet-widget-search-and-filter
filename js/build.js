@@ -203,12 +203,8 @@ Fliplet.Widget.instance({
         var orderBy = null;
 
         // SORT ASC/DESC BY COLUMN
-        var activeSortAsc = $(document).find(
-          '.sort-option-icon.fa-sort-asc.active'
-        );
-        var activeSortDesc = $(document).find(
-          '.sort-option-icon.fa-sort-desc.active'
-        );
+        var activeSortAsc = $(document).find('.sort-option-icon.fa-sort-asc.active');
+        var activeSortDesc = $(document).find('.sort-option-icon.fa-sort-desc.active');
 
         if (activeSortAsc.length) {
           orderBy = [[`data.${activeSortAsc.closest('.sort-option').data('column')}`, 'ASC']];
@@ -222,12 +218,14 @@ Fliplet.Widget.instance({
         // END OF SORT ASC/DESC BY COLUMN
 
         if (Fliplet.Navigate.query.filtersApplied) {
-          Fliplet.App.Storage.get(lfdPage).then(function(value) {
+          return Fliplet.App.Storage.get(lfdPage).then(function(value) {
             query.where = value;
+
+            return query;
           });
-        } else {
-          query.where = where;
         }
+
+        query.where = where;
 
         return query;
       }

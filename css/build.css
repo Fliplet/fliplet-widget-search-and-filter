@@ -20,6 +20,7 @@ fl-helper[name="search-and-filter"] .sort-container .sort-options-container {
   right: 0;
   top: 25px;
   display: none;
+  z-index: 10;
 }
 
 fl-helper[name="search-and-filter"] .sort-container .sort-options-container ul {

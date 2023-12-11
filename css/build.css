@@ -50,7 +50,7 @@ fl-helper[name="search-and-filter"] .bookmark-icon {
   display: none;
 }
 
-fl-helper[name="search-and-filter"] .bookmark-icon .active {
+fl-helper[name="search-and-filter"] .bookmark-icon.active {
   display: inline-block;
 }
 

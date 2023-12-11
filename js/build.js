@@ -155,7 +155,7 @@ Fliplet.Widget.instance({
             repeater.rows.query.where = query.where;
 
             if (query.orderBy) {
-              repeater.rows.query.order = query.orderBy;
+              repeater.rows.query.order = query.orderBy.order;
             }
 
             repeater.rows.update();

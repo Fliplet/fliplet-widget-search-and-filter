@@ -1,0 +1,20 @@
+{
+  "extends": "fliplet",
+  "env": {
+    "node": true,
+    "es6": true,
+    "jasmine": true,
+    "browser": true,
+    "jquery": true
+  },
+  "globals": {
+    "_": true,
+    "Fliplet": true,
+    "interfaceBrowser": true,
+    "buildBrowser": true,
+    "interfaceUrl": true,
+    "buildUrl": true,
+    "widgetInstance": true,
+    "buildSelector": true
+  }
+}

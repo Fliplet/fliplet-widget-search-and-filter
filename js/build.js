@@ -61,7 +61,8 @@ Fliplet.Widget.instance({
 
       var lfdPage = isListOnDifferentScreen ? screenAction : Fliplet.Env.get('pageId');
 
-      debugger;
+      applyFilters();
+
       $(document)
         .find('.search-input')
         .on('keyup', function(e) {

@@ -59,7 +59,8 @@ Fliplet.Widget.instance({
       let screenAction = filterAndSearchContainer.fields.action;
       let isListOnDifferentScreen = filterAndSearchContainer.fields.isListOnDifferentScreen.includes(true);
 
-      var lfdPage = isListOnDifferentScreen ? screenAction : Fliplet.Env.get('pageId');
+      var filterContainerPage = isListOnDifferentScreen ? screenAction : Fliplet.Env.get('pageId');
+      var lfdPage = Fliplet.Env.get('pageId');
 
       applyFilters();
 
@@ -97,7 +98,7 @@ Fliplet.Widget.instance({
         .find('.filter-icon')
         .on('click', function() {
           if (isListOnDifferentScreen) {
-            Fliplet.Navigate.screen(lfdPage.page, { query: lfdPage.query || '', transition: lfdPage.transition || 'fade' });
+            Fliplet.Navigate.screen(filterContainerPage.page, { query: filterContainerPage.query || '', transition: filterContainerPage.transition || 'fade' });
           } else {
             $('.active.bookmark-icon').hasClass('fa-bookmark')
               ? applyBookmarkedDataAndFilters()
@@ -225,7 +226,7 @@ Fliplet.Widget.instance({
         // END OF SORT ASC/DESC BY COLUMN
 
         if (Fliplet.Navigate.query.filtersApplied) {
-          return Fliplet.App.Storage.get(lfdPage.page).then(function(value) {
+          return Fliplet.App.Storage.get(lfdPage).then(function(value) {
             query.where = value;
 
             return query;

@@ -142,8 +142,8 @@ Fliplet.Widget.instance({
         }
       }
 
-      function applyFilters() {
-        var query = collectQuery();
+      async function applyFilters() {
+        var query = await collectQuery();
 
         debugger;
 

@@ -145,6 +145,8 @@ Fliplet.Widget.instance({
       function applyFilters() {
         var query = collectQuery();
 
+        debugger;
+
         // TODO apply filters
         if (Fliplet.ListRepeater) {
           return Fliplet.ListRepeater.get().then(function(repeater) {

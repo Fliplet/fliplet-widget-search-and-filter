@@ -40,11 +40,11 @@ Fliplet.Widget.instance({
     </div>
   `,
   render: {
-    ready: function() {
+    ready: async function() {
       // Initialize children components when this widget is ready
       let filterAndSearchContainer = this;
 
-      Fliplet.Widget.initializeChildren(filterAndSearchContainer.$el, filterAndSearchContainer);
+      await Fliplet.Widget.initializeChildren(filterAndSearchContainer.$el, filterAndSearchContainer);
 
       filterAndSearchContainer.fields = _.assign(
         {
@@ -61,6 +61,7 @@ Fliplet.Widget.instance({
 
       var lfdPage = isListOnDifferentScreen ? screenAction : Fliplet.Env.get('pageId');
 
+      debugger;
       $(document)
         .find('.search-input')
         .on('keyup', function(e) {

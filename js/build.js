@@ -160,8 +160,6 @@ Fliplet.Widget.instance({
             }
 
             repeater.rows.update();
-
-            return Promise.resolve(true);
           });
         }
 

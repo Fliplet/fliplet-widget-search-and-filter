@@ -225,7 +225,7 @@ Fliplet.Widget.instance({
         // END OF SORT ASC/DESC BY COLUMN
 
         if (Fliplet.Navigate.query.filtersApplied) {
-          return Fliplet.App.Storage.get(lfdPage).then(function(value) {
+          return Fliplet.App.Storage.get(lfdPage.page).then(function(value) {
             query.where = value;
 
             return query;

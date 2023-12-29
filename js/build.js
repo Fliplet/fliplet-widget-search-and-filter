@@ -264,14 +264,14 @@ Fliplet.Widget.instance({
             if (Object.hasOwn(flipletQuery, key)) {
               switch (key) {
                 case 'newDynamicListFilterColumn':
-                  // newDynamicListFilterColumn - A ||-separated list of columns to select filter values within (optional).
+                  // newDynamicListFilterColumn - A comma-separated list of columns to select filter values within (optional).
                   // The number of columns provided must match the number of values provided.
-                  // To select multiple values for a column, use [] to enclose the values and separate them by ||.
-                  // e.g. newDynamicListFilterColumn=Tags||Category&newDynamicListFilterValue=[Foo||Buzz],Enterprise%20software
+                  // To select multiple values for a column, use [] to enclose the values and separate them by ,.
+                  // e.g. newDynamicListFilterColumn=Tags,Category&newDynamicListFilterValue=[Foo,Buzz],Enterprise%20software
                   // selects the filters Tags=Foo, Tags=Buzz and Category=Enterprise software.
-                  let columns = flipletQuery[key].split('||');
+                  let columns = flipletQuery[key].split(',');
                   let values
-                    = flipletQuery['newDynamicListFilterValue'] ? flipletQuery['newDynamicListFilterValue'].slice(1, -1).split('||') : [];
+                    = flipletQuery['newDynamicListFilterValue'] ? flipletQuery['newDynamicListFilterValue'].slice(1, -1).split(',') : [];
 
                   if (columns && values && columns.length !== values.length) {
                     console.log(

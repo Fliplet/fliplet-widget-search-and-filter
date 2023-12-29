@@ -282,9 +282,7 @@ Fliplet.Widget.instance({
                   }
 
                   columns.forEach((element, index) => {
-                    queryValue.push({
-                      [element]: values[index]
-                    });
+                    queryValue[element] = values[index];
                   });
                   break;
                 case 'newDynamicListSearchValue':
@@ -296,10 +294,8 @@ Fliplet.Widget.instance({
                   );
 
                   if (includedListSearchColumn) {
-                    queryValue.push({
-                      [flipletQuery['newDynamicListSearchColumn']]:
-                        flipletQuery['newDynamicListSearchValue']
-                    });
+                    queryValue[flipletQuery['newDynamicListSearchColumn']]
+                        = flipletQuery['newDynamicListSearchValue'];
                   } else {
                     // collect from component configuration
                   }

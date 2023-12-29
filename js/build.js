@@ -278,7 +278,9 @@ Fliplet.Widget.instance({
                       'newDynamicListFilterColumn and newDynamicListFilterValue has no matching length'
                     );
 
-                    return Promise.reject('');
+                    queryValue.noData = 'noData';
+
+                    return;
                   }
 
                   columns.forEach((element, index) => {

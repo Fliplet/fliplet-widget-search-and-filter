@@ -279,8 +279,7 @@ Fliplet.Widget.instance({
                     );
 
                     queryValue.noData = 'noData';
-
-                    return;
+                    break;
                   }
 
                   columns.forEach((element, index) => {

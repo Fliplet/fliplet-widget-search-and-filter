@@ -260,8 +260,8 @@ Fliplet.Widget.instance({
         if (containsDynamicKeys) {
           let queryValue = {};
 
-          for (const key in dynamicQueryValues) {
-            if (Object.hasOwn(dynamicQueryValues, key)) {
+          for (const key in flipletQuery) {
+            if (Object.hasOwn(flipletQuery, key)) {
               switch (key) {
                 case 'newDynamicListFilterColumn':
                   // newDynamicListFilterColumn - A ||-separated list of columns to select filter values within (optional).
@@ -269,9 +269,9 @@ Fliplet.Widget.instance({
                   // To select multiple values for a column, use [] to enclose the values and separate them by ||.
                   // e.g. newDynamicListFilterColumn=Tags||Category&newDynamicListFilterValue=[Foo||Buzz],Enterprise%20software
                   // selects the filters Tags=Foo, Tags=Buzz and Category=Enterprise software.
-                  let columns = dynamicQueryValues[key].split('||');
+                  let columns = flipletQuery[key].split('||');
                   let values
-                    = dynamicQueryValues['newDynamicListFilterValue'].join('||');
+                    = flipletQuery['newDynamicListFilterValue'] ? flipletQuery['newDynamicListFilterValue'].join('||') : [];
 
                   if (columns && values && columns.length !== values.length) {
                     console.log(

@@ -44,7 +44,10 @@ Fliplet.Widget.instance({
       // Initialize children components when this widget is ready
       let filterAndSearchContainer = this;
 
-      await Fliplet.Widget.initializeChildren(filterAndSearchContainer.$el, filterAndSearchContainer);
+      await Fliplet.Widget.initializeChildren(
+        filterAndSearchContainer.$el,
+        filterAndSearchContainer
+      );
 
       filterAndSearchContainer.fields = _.assign(
         {
@@ -54,13 +57,17 @@ Fliplet.Widget.instance({
         filterAndSearchContainer.fields
       );
 
-      var bookmarkDataSourceName = 'Global Social Actions';
-      var currentDataSourceId = 123; // set it from component dynamic-container
-      let screenAction = filterAndSearchContainer.fields.action;
-      let isListOnDifferentScreen = filterAndSearchContainer.fields.isListOnDifferentScreen.includes(true);
+      const bookmarkDataSourceName = 'Global Social Actions';
+      const currentDataSourceId = 123; // set it from component dynamic-container
+      const screenAction = filterAndSearchContainer.fields.action;
+      const isListOnDifferentScreen
+        = filterAndSearchContainer.fields.isListOnDifferentScreen.includes(true);
 
-      var filterContainerPage = isListOnDifferentScreen ? screenAction : Fliplet.Env.get('pageId');
-      var lfdPage = Fliplet.Env.get('pageId');
+      const filterContainerPage = isListOnDifferentScreen
+        ? screenAction
+        : Fliplet.Env.get('pageId');
+      const lfdPage = Fliplet.Env.get('pageId');
+      const flipletQuery = Fliplet.Navigate.query;
 
       applyFilters();
 
@@ -98,7 +105,10 @@ Fliplet.Widget.instance({
         .find('.filter-icon')
         .on('click', function() {
           if (isListOnDifferentScreen) {
-            Fliplet.Navigate.screen(filterContainerPage.page, { query: filterContainerPage.query || '', transition: filterContainerPage.transition || 'fade' });
+            Fliplet.Navigate.screen(filterContainerPage.page, {
+              query: filterContainerPage.query || '',
+              transition: filterContainerPage.transition || 'fade'
+            });
           } else {
             $('.active.bookmark-icon').hasClass('fa-bookmark')
               ? applyBookmarkedDataAndFilters()
@@ -144,7 +154,7 @@ Fliplet.Widget.instance({
       }
 
       async function applyFilters() {
-        var query = await collectQuery();
+        let query = await collectQuery();
 
         debugger;
 
@@ -173,7 +183,7 @@ Fliplet.Widget.instance({
 
         if (Fliplet.ListRepeater) {
           return Fliplet.ListRepeater.get().then(function(repeater) {
-            var where = {};
+            let where = {};
 
             return Fliplet.DataSources.connectByName(
               bookmarkDataSourceName
@@ -204,18 +214,38 @@ Fliplet.Widget.instance({
       }
 
       function collectQuery() {
-        var query = {};
-        var where = {}; // collect from the filters on the page
-        var orderBy = null;
+        let query = {};
+        let where = {}; // collect from the filters on the page
+        let orderBy = null;
+        const dynamicQueryValues = [
+          'newDynamicListSearchValue',
+          'newDynamicListSearchColumn',
+          'newDynamicListFilterValue',
+          'newDynamicListFilterColumn'
+        ];
 
         // SORT ASC/DESC BY COLUMN
-        var activeSortAsc = $(document).find('.sort-option-icon.fa-sort-asc.active');
-        var activeSortDesc = $(document).find('.sort-option-icon.fa-sort-desc.active');
+        const activeSortAsc = $(document).find(
+          '.sort-option-icon.fa-sort-asc.active'
+        );
+        const activeSortDesc = $(document).find(
+          '.sort-option-icon.fa-sort-desc.active'
+        );
 
         if (activeSortAsc.length) {
-          orderBy = [[`data.${activeSortAsc.closest('.sort-option').data('column')}`, 'ASC']];
+          orderBy = [
+            [
+              `data.${activeSortAsc.closest('.sort-option').data('column')}`,
+              'ASC'
+            ]
+          ];
         } else if (activeSortDesc.length) {
-          orderBy = [[`data.${activeSortDesc.closest('.sort-option').data('column')}`, 'DESC']];
+          orderBy = [
+            [
+              `data.${activeSortDesc.closest('.sort-option').data('column')}`,
+              'DESC'
+            ]
+          ];
         }
 
         if (orderBy) {
@@ -223,7 +253,71 @@ Fliplet.Widget.instance({
         }
         // END OF SORT ASC/DESC BY COLUMN
 
-        if (Fliplet.Navigate.query.filtersApplied) {
+        const containsDynamicKeys = _.some(dynamicQueryValues, function(key) {
+          return flipletQuery.hasOwnProperty(key);
+        });
+
+        if (containsDynamicKeys) {
+          let queryValue = {};
+
+          for (const key in dynamicQueryValues) {
+            if (Object.hasOwn(dynamicQueryValues, key)) {
+              switch (key) {
+                case 'newDynamicListFilterColumn':
+                  // newDynamicListFilterColumn - A ||-separated list of columns to select filter values within (optional).
+                  // The number of columns provided must match the number of values provided.
+                  // To select multiple values for a column, use [] to enclose the values and separate them by ||.
+                  // e.g. newDynamicListFilterColumn=Tags||Category&newDynamicListFilterValue=[Foo||Buzz],Enterprise%20software
+                  // selects the filters Tags=Foo, Tags=Buzz and Category=Enterprise software.
+                  let columns = dynamicQueryValues[key].split('||');
+                  let values
+                    = dynamicQueryValues['newDynamicListFilterValue'].join('||');
+
+                  if (columns && values && columns.length !== values.length) {
+                    console.log(
+                      'newDynamicListFilterColumn and newDynamicListFilterValue has no matching length'
+                    );
+
+                    return Promise.reject('');
+                  }
+
+                  columns.forEach((element, index) => {
+                    queryValue.push({
+                      [element]: values[index]
+                    });
+                  });
+                  break;
+                case 'newDynamicListSearchValue':
+                  // check for search by component configuration
+                  // newDynamicListSearchColumn Column to execute a search against.
+                  // If provided, the component configuration will be ignored. (Optional)
+                  const includedListSearchColumn = flipletQuery.hasOwnProperty(
+                    'newDynamicListSearchColumn'
+                  );
+
+                  if (includedListSearchColumn) {
+                    queryValue.push({
+                      [flipletQuery['newDynamicListSearchColumn']]:
+                        flipletQuery['newDynamicListSearchValue']
+                    });
+                  } else {
+                    // collect from component configuration
+                  }
+
+                  break;
+
+                default:
+                  break;
+              }
+            }
+          }
+
+          query.where = queryValue;
+
+          return query;
+        }
+
+        if (flipletQuery.filtersApplied) {
           return Fliplet.App.Storage.get(lfdPage).then(function(value) {
             query.where = value;
 

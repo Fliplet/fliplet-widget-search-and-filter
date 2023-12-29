@@ -271,7 +271,7 @@ Fliplet.Widget.instance({
                   // selects the filters Tags=Foo, Tags=Buzz and Category=Enterprise software.
                   let columns = flipletQuery[key].split('||');
                   let values
-                    = flipletQuery['newDynamicListFilterValue'] ? flipletQuery['newDynamicListFilterValue'].join('||') : [];
+                    = flipletQuery['newDynamicListFilterValue'] ? JSON.parse(flipletQuery['newDynamicListFilterValue']).join('||') : [];
 
                   if (columns && values && columns.length !== values.length) {
                     console.log(

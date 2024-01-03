@@ -67,11 +67,10 @@ Fliplet.Widget.instance({
       );
 
       const bookmarkDataSourceName = 'Global Social Actions';
-      let currentDataSourceId = null; // set it from component dynamic-container
 
-      Fliplet.DynamicContainer.get().then(function(container) {
+      const currentDataSourceId = await Fliplet.DynamicContainer.get().then(function(container) { // set it from component dynamic-container
         return container.connection().then(function(connection) {
-          currentDataSourceId = connection.id;
+          return connection.id;
         });
       });
 

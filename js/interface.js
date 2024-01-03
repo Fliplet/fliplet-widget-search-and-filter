@@ -23,6 +23,10 @@ Fliplet.Widget.generateInterface({
       default: []
     },
     {
+      type: 'html',
+      html: '<br/>'
+    },
+    {
       name: 'allowSorting',
       type: 'checkbox',
       label: 'List storting',
@@ -39,11 +43,19 @@ Fliplet.Widget.generateInterface({
       }
     },
     {
+      type: 'html',
+      html: '<br/>'
+    },
+    {
       name: 'bookmarksEnabled',
       type: 'checkbox',
       label: 'Bookmarks',
       options: [{ value: true, label: 'Allow users to filter by bookmarks' }],
       default: []
+    },
+    {
+      type: 'html',
+      html: '<br/>'
     },
     {
       name: 'isFilterOnDifferentScreen',

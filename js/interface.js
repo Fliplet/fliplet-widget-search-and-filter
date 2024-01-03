@@ -1,6 +1,7 @@
 // // This function is used to generate the interface for the widget
 // var dataSourceColumns = [];
 var dataSourceId = 696452; // TODO get dsId from the dynamic container
+var dataSourceName = 'Users'; // TODO get dsId from the dynamic container
 
 // if (Fliplet.DynamicContainer) {
 //   this.dataSourceId = await Fliplet.DynamicContainer.get().then(function(
@@ -35,10 +36,13 @@ Fliplet.Widget.generateInterface({
   //     });
   //   }
   // },
+  ready() {
+    debugger;
+  },
   fields: [
     {
       type: 'html',
-      html: `<p style="color: #A5A5A5; font-size: 12px; font-weight: 400;">List from data source name (ID: <span class="data-source-id">${dataSourceId}</span>)</p>
+      html: `<p style="color: #A5A5A5; font-size: 12px; font-weight: 400;">List from ${dataSourceName}(ID: <span class="data-source-id">${dataSourceId}</span>)</p>
                     <p style="font-size: 10px; font-weight: 400; color: #E7961E;">To change Data source go to Data Container Settings</p>
                     <hr/>`
     },

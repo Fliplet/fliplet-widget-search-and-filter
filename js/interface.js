@@ -11,6 +11,8 @@ Fliplet.Widget.generateInterface({
         container
       ) {
         return container.connection().then(function(connection) {
+          debugger;
+
           return connection.id;
         });
       });
@@ -18,6 +20,8 @@ Fliplet.Widget.generateInterface({
       dataSourceColumns = await Fliplet.DataSources.getById(dataSourceId, {
         attributes: ['columns']
       }).then(async function(dataSource) {
+        debugger;
+
         return dataSource.columns;
       });
     }
@@ -50,6 +54,7 @@ Fliplet.Widget.generateInterface({
         // $(document).find('#sortingOptions').toggle(value.includes(true));
       },
       ready: function() {
+        debugger;
         // $(document).find('#sortingOptions').toggle(
         //   Fliplet.Helper.field('allowSorting').get().includes(true)
         // );

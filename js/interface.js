@@ -5,20 +5,22 @@ var dataSourceId = null; // TODO get dsId from the dynamic container
 Fliplet.Widget.generateInterface({
   title: 'Search and filter',
   // Define the fields that will be available in the interface
-  beforeReady() {
-    Fliplet.DataSources.getById(696452, {
-      attributes: ['columns']
-    }).then(function(dataSource) {
-      dataSourceColumns = dataSource.columns;
-
-      if (Fliplet.DynamicContainer) {
-        return Fliplet.DynamicContainer.get().then(function(container) {
-          return container.connection().then(function(connection) {
-            dataSourceId = connection.id;
-          });
+  async beforeReady() {
+    if (Fliplet.DynamicContainer) {
+      dataSourceId = await Fliplet.DynamicContainer.get().then(function(
+        container
+      ) {
+        return container.connection().then(function(connection) {
+          return connection.id;
         });
-      }
-    });
+      });
+
+      return Fliplet.DataSources.getById(dataSourceId, {
+        attributes: ['columns']
+      }).then(async function(dataSource) {
+        dataSourceColumns = dataSource.columns;
+      });
+    }
   },
   fields: [
     {

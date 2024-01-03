@@ -74,8 +74,6 @@ Fliplet.Widget.instance({
         });
       });
 
-      debugger;
-
       const screenAction = filterAndSearchContainer.fields.action;
       const isFilterOnDifferentScreen
         = filterAndSearchContainer.fields.isFilterOnDifferentScreen.includes(true);

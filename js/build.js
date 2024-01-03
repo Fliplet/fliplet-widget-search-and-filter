@@ -10,7 +10,7 @@ Fliplet.Widget.instance({
         <input class="search-button" type="button" value="Search">
       </div>
       <div class="action-icons">
-        <i class="fa fa-bookmark-o cursor-pointer active bookmark-icon"></i>
+        <i class="fa fa-bookmark-o cursor-pointer bookmark-icon"></i>
         <i class="fa fa-bookmark cursor-pointer bookmark-icon"></i>
         <i class="fa fa-filter cursor-pointer filter-icon"></i>
         <div class="sort-container">
@@ -68,6 +68,11 @@ Fliplet.Widget.instance({
         : Fliplet.Env.get('pageId');
       const lfdPage = Fliplet.Env.get('pageId');
       const flipletQuery = Fliplet.Navigate.query;
+      let bookmarksEnabled = filterAndSearchContainer.fields.bookmarksEnabled.includes(true);
+
+      if (bookmarksEnabled) {
+        $('.bookmark-icon.fa-bookmark-o').addClass('active');
+      }
 
       applyFilters();
 
@@ -75,7 +80,7 @@ Fliplet.Widget.instance({
         .find('.search-input')
         .on('keyup', function(e) {
           if (e.keyCode === 13 && $(this).val()) {
-            $('.active.bookmark-icon').hasClass('fa-bookmark')
+            bookmarksEnabled && $('.active.bookmark-icon').hasClass('fa-bookmark')
               ? applyBookmarkedDataAndFilters()
               : applyFilters();
           }
@@ -84,7 +89,7 @@ Fliplet.Widget.instance({
       $(document)
         .find('.search-button')
         .on('click', function() {
-          $('.active.bookmark-icon').hasClass('fa-bookmark')
+          bookmarksEnabled && $('.active.bookmark-icon').hasClass('fa-bookmark')
             ? applyBookmarkedDataAndFilters()
             : applyFilters();
         });
@@ -110,7 +115,7 @@ Fliplet.Widget.instance({
               transition: filterContainerPage.transition || 'fade'
             });
           } else {
-            $('.active.bookmark-icon').hasClass('fa-bookmark')
+            bookmarksEnabled && $('.active.bookmark-icon').hasClass('fa-bookmark')
               ? applyBookmarkedDataAndFilters()
               : applyFilters();
           }
@@ -138,7 +143,7 @@ Fliplet.Widget.instance({
             resetSortState($(this), false);
           }
 
-          $('.active.bookmark-icon').hasClass('fa-bookmark')
+          bookmarksEnabled && $('.active.bookmark-icon').hasClass('fa-bookmark')
             ? applyBookmarkedDataAndFilters()
             : applyFilters();
         });

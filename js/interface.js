@@ -1,6 +1,6 @@
 // This function is used to generate the interface for the widget
 var dataSourceColumns = [];
-var dataSourceId = 696452; // TODO get dsId from the dynamic container
+var dataSourceId = null; // TODO get dsId from the dynamic container
 
 Fliplet.Widget.generateInterface({
   title: 'Search and filter',
@@ -10,14 +10,22 @@ Fliplet.Widget.generateInterface({
       attributes: ['columns']
     }).then(function(dataSource) {
       dataSourceColumns = dataSource.columns;
+
+      if (Fliplet.DynamicContainer) {
+        return Fliplet.DynamicContainer.get().then(function(container) {
+          return container.connection().then(function(connection) {
+            dataSourceId = connection.id;
+          });
+        });
+      }
     });
   },
   fields: [
     {
       type: 'html',
-      html: `<p class="list-from-data-source">List from data source name (ID: <span class="data-source-id">${dataSourceId}</span>)</p>
+      html: `<p style="color: #A5A5A5; font-size: 12px; font-weight: 400;">List from data source name (ID: <span class="data-source-id">${dataSourceId}</span>)</p>
             <p style="font-size: 10px; font-weight: 400; color: #E7961E;">To change Data source go to Data Container Settings</p>
-            <hr/><br/>`
+            <hr/>`
     },
     {
       name: 'allowSearching',

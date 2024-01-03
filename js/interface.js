@@ -48,7 +48,7 @@ Fliplet.Widget.generateInterface({
     {
       name: 'isFilterOnDifferentScreen',
       type: 'checkbox',
-      label: '',
+      label: 'Filter button',
       options: [{ value: true, label: 'Filter is on another screen' }],
       default: [],
       change: function(value) {

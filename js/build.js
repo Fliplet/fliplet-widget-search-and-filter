@@ -75,6 +75,7 @@ Fliplet.Widget.instance({
       let allowSearching = filterAndSearchContainer.fields.allowSearching.includes(true);
       let allowSorting = filterAndSearchContainer.fields.allowSorting.includes(true);
 
+      $('.data-source-id').html(currentDataSourceId);
       $('.search-filter-container').css('visibility', allowSearching ? 'visible' : 'hidden');
       $('.sort-container').toggle(allowSorting);
 

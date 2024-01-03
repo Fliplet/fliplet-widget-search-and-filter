@@ -53,7 +53,8 @@ Fliplet.Widget.generateInterface({
         // $(document).find('#sortingOptions').toggle(
         //   Fliplet.Helper.field('allowSorting').get().includes(true)
         // );
-        console.log(dataSourceColumns);
+        console.log('dataSourceColumns', dataSourceColumns);
+        console.log('dataSourceId', dataSourceId);
       }
     },
     {

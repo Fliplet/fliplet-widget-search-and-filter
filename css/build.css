@@ -1,9 +1,3 @@
-fl-helper[name="search-and-filter"] .info-text {
-  color: #E7961E;
-  font-size: 10px;
-  font-weight: 400;
-}
-
 fl-helper[name="search-and-filter"] .sort-option-icon {
   display: none;
 }

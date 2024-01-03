@@ -15,10 +15,10 @@ Fliplet.Widget.generateInterface({
         });
       });
 
-      return Fliplet.DataSources.getById(dataSourceId, {
+      dataSourceColumns = await Fliplet.DataSources.getById(dataSourceId, {
         attributes: ['columns']
       }).then(async function(dataSource) {
-        dataSourceColumns = dataSource.columns;
+        return dataSource.columns;
       });
     }
   },

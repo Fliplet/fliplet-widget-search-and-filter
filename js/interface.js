@@ -16,6 +16,12 @@ Fliplet.Widget.generateInterface({
   },
   fields: [
     {
+      type: 'html',
+      html: `<p class="list-from-data-source">List from data source name (ID: <span class="data-source-id"></span>)</p>
+            <p class="info-text">To change Data source go to Data Container Settings</p>
+            <hr/><br/>`
+    },
+    {
       name: 'allowSearching',
       type: 'checkbox',
       label: 'List search',

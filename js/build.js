@@ -49,6 +49,12 @@ Fliplet.Widget.instance({
         filterAndSearchContainer
       );
 
+      if (!Fliplet.DynamicContainer) {
+        Fliplet.UI.Toast('Please add Dynamic Container component');
+
+        return Promise.reject('');
+      }
+
       filterAndSearchContainer.fields = _.assign(
         {
           isFilterOnDifferentScreen: [],
@@ -61,7 +67,16 @@ Fliplet.Widget.instance({
       );
 
       const bookmarkDataSourceName = 'Global Social Actions';
-      const currentDataSourceId = 123; // set it from component dynamic-container
+      let currentDataSourceId = null; // set it from component dynamic-container
+
+      Fliplet.DynamicContainer.get().then(function(container) {
+        return container.connection().then(function(connection) {
+          currentDataSourceId = connection.id;
+        });
+      });
+
+      debugger;
+
       const screenAction = filterAndSearchContainer.fields.action;
       const isFilterOnDifferentScreen
         = filterAndSearchContainer.fields.isFilterOnDifferentScreen.includes(true);

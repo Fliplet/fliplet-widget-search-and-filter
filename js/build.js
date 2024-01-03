@@ -51,8 +51,11 @@ Fliplet.Widget.instance({
 
       filterAndSearchContainer.fields = _.assign(
         {
-          isListOnDifferentScreen: [],
-          action: { action: 'screen' }
+          isFilterOnDifferentScreen: [],
+          action: { action: 'screen' },
+          allowSearching: [],
+          allowSorting: [],
+          bookmarksEnabled: []
         },
         filterAndSearchContainer.fields
       );
@@ -60,15 +63,20 @@ Fliplet.Widget.instance({
       const bookmarkDataSourceName = 'Global Social Actions';
       const currentDataSourceId = 123; // set it from component dynamic-container
       const screenAction = filterAndSearchContainer.fields.action;
-      const isListOnDifferentScreen
-        = filterAndSearchContainer.fields.isListOnDifferentScreen.includes(true);
+      const isFilterOnDifferentScreen
+        = filterAndSearchContainer.fields.isFilterOnDifferentScreen.includes(true);
 
-      const filterContainerPage = isListOnDifferentScreen
+      const filterContainerPage = isFilterOnDifferentScreen
         ? screenAction
         : Fliplet.Env.get('pageId');
       const lfdPage = Fliplet.Env.get('pageId');
       const flipletQuery = Fliplet.Navigate.query;
       let bookmarksEnabled = filterAndSearchContainer.fields.bookmarksEnabled.includes(true);
+      let allowSearching = filterAndSearchContainer.fields.allowSearching.includes(true);
+      let allowSorting = filterAndSearchContainer.fields.allowSorting.includes(true);
+
+      $('.search-filter-container').css('visibility', allowSearching ? 'visible' : 'hidden');
+      $('.sort-container').toggle(allowSorting);
 
       if (bookmarksEnabled) {
         $('.bookmark-icon.fa-bookmark-o').addClass('active');
@@ -109,7 +117,7 @@ Fliplet.Widget.instance({
       $(document)
         .find('.filter-icon')
         .on('click', function() {
-          if (isListOnDifferentScreen) {
+          if (isFilterOnDifferentScreen) {
             Fliplet.Navigate.screen(filterContainerPage.page, {
               query: filterContainerPage.query || '',
               transition: filterContainerPage.transition || 'fade'

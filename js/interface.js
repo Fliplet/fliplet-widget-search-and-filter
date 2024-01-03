@@ -16,25 +16,11 @@ Fliplet.Widget.generateInterface({
   },
   fields: [
     {
-      name: 'isListOnDifferentScreen',
+      name: 'allowSearching',
       type: 'checkbox',
-      label: 'List is on the different screen than filter',
-      options: [{ value: true, label: 'yes' }],
-      default: [],
-      change: function(value) {
-        Fliplet.Helper.field('action').toggle(value.includes(true));
-      },
-      ready: function() {
-        Fliplet.Helper.field('action').toggle(
-          Fliplet.Helper.field('isListOnDifferentScreen').get().includes(true)
-        );
-      }
-    },
-    {
-      name: 'action',
-      type: 'provider',
-      label: 'Select a screen with filter',
-      package: 'com.fliplet.link'
+      label: 'List search',
+      options: [{ value: true, label: 'Allow users to search the list' }],
+      default: []
     },
     {
       name: 'allowSorting',
@@ -42,13 +28,13 @@ Fliplet.Widget.generateInterface({
       label: 'List storting',
       options: [{ value: true, label: 'Allow users to sort the list' }],
       default: [],
-      change: function(value) {
-        $(document).find('#sortingOptions').toggle(value.includes(true));
+      change: function() {
+        // $(document).find('#sortingOptions').toggle(value.includes(true));
       },
       ready: function() {
-        $(document).find('#sortingOptions').toggle(
-          Fliplet.Helper.field('allowSorting').get().includes(true)
-        );
+        // $(document).find('#sortingOptions').toggle(
+        //   Fliplet.Helper.field('allowSorting').get().includes(true)
+        // );
         console.log(dataSourceColumns);
       }
     },
@@ -58,6 +44,27 @@ Fliplet.Widget.generateInterface({
       label: 'Bookmarks',
       options: [{ value: true, label: 'Allow users to filter by bookmarks' }],
       default: []
+    },
+    {
+      name: 'isFilterOnDifferentScreen',
+      type: 'checkbox',
+      label: '',
+      options: [{ value: true, label: 'Filter is on another screen' }],
+      default: [],
+      change: function(value) {
+        Fliplet.Helper.field('action').toggle(value.includes(true));
+      },
+      ready: function() {
+        Fliplet.Helper.field('action').toggle(
+          Fliplet.Helper.field('isFilterOnDifferentScreen').get().includes(true)
+        );
+      }
+    },
+    {
+      name: 'action',
+      type: 'provider',
+      label: 'Select a screen with filter',
+      package: 'com.fliplet.link'
     }
   ]
 });

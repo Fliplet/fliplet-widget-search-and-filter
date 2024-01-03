@@ -1,6 +1,6 @@
 // // This function is used to generate the interface for the widget
 // var dataSourceColumns = [];
-var dataSourceId = null; // TODO get dsId from the dynamic container
+var dataSourceId = 696452; // TODO get dsId from the dynamic container
 
 // if (Fliplet.DynamicContainer) {
 //   this.dataSourceId = await Fliplet.DynamicContainer.get().then(function(

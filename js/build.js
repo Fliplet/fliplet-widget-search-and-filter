@@ -60,6 +60,8 @@ Fliplet.Widget.instance({
       // Initialize children components when this widget is ready
       let filterAndSearchContainer = this;
 
+      debugger;
+
       await Fliplet.Widget.initializeChildren(
         filterAndSearchContainer.$el,
         filterAndSearchContainer

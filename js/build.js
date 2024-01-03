@@ -39,11 +39,28 @@ Fliplet.Widget.instance({
       </div>
     </div>
   `,
+  data: {
+    dataSourceId: null
+  },
   render: {
+    async beforeReady() {
+      if (Fliplet.DynamicContainer) {
+        this.dataSourceId = await Fliplet.DynamicContainer.get().then(function(
+          container
+        ) {
+          return container.connection().then(function(connection) {
+            debugger;
+
+            return connection.id;
+          });
+        });
+      }
+    },
     ready: async function() {
       // Initialize children components when this widget is ready
       let filterAndSearchContainer = this;
 
+      debugger;
       await Fliplet.Widget.initializeChildren(
         filterAndSearchContainer.$el,
         filterAndSearchContainer

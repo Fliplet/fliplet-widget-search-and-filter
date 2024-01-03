@@ -15,7 +15,8 @@
   "interface": {
     "dependencies": [
       "fliplet-core",
-      "fliplet-studio-ui"
+      "fliplet-studio-ui",
+      "fliplet-dataSources"
     ],
     "assets": [
       "js/interface.js"

@@ -5,6 +5,8 @@ var dataSourceId = null; // TODO get dsId from the dynamic container
 Fliplet.DataSources.getById(dataSourceId, {
   attributes: ['columns']
 }).then(async function(dataSource) {
+  debugger;
+
   dataSourceColumns = dataSource.columns;
   Fliplet.Widget.generateInterface({
     title: 'Search and filter',

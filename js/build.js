@@ -60,7 +60,6 @@ Fliplet.Widget.instance({
       // Initialize children components when this widget is ready
       let filterAndSearchContainer = this;
 
-      debugger;
       await Fliplet.Widget.initializeChildren(
         filterAndSearchContainer.$el,
         filterAndSearchContainer
@@ -84,12 +83,6 @@ Fliplet.Widget.instance({
       );
 
       const bookmarkDataSourceName = 'Global Social Actions';
-
-      const currentDataSourceId = await Fliplet.DynamicContainer.get().then(function(container) { // set it from component dynamic-container
-        return container.connection().then(function(connection) {
-          return connection.id;
-        });
-      });
 
       const screenAction = filterAndSearchContainer.fields.action;
       const isFilterOnDifferentScreen
@@ -231,7 +224,7 @@ Fliplet.Widget.instance({
               bookmarkDataSourceName
             ).then(function(connection) {
               return connection
-                .find({ where: { 'Data Source Id': currentDataSourceId } })
+                .find({ where: { 'Data Source Id': filterAndSearchContainer.dataSourceId } })
                 .then(function(records) {
                   debugger;
 

@@ -22,23 +22,6 @@ var dataSourceName = 'Users'; // TODO get dsId from the dynamic container
 //   dataSourceColumns = dataSource.columns;
 Fliplet.Widget.generateInterface({
   title: 'Search and filter',
-  // Define the fields that will be available in the interface
-  // async beforeReady() {
-  //   if (Fliplet.DynamicContainer) {
-  //     dataSourceId = await Fliplet.DynamicContainer.get().then(function(
-  //       container
-  //     ) {
-  //       return container.connection().then(function(connection) {
-  //         debugger;
-
-  //         return connection.id;
-  //       });
-  //     });
-  //   }
-  // },
-  ready() {
-    debugger;
-  },
   fields: [
     {
       type: 'html',
@@ -63,15 +46,42 @@ Fliplet.Widget.generateInterface({
       label: 'List storting',
       options: [{ value: true, label: 'Allow users to sort the list' }],
       default: [],
-      change: function() {
-        // $(document).find('#sortingOptions').toggle(value.includes(true));
+      change: function(value) {
+        $(document).find('#sortingOptions').toggle(value.includes(true));
       },
       ready: function() {
-        debugger;
-        // $(document).find('#sortingOptions').toggle(
-        //   Fliplet.Helper.field('allowSorting').get().includes(true)
-        // );
+        let show = Fliplet.Helper.field('allowSorting').get().includes(true);
+
+        $(document).find('#sortingOptions').toggle(show);
+
+        if (show) {
+          Fliplet.DataSources.getById(dataSourceId, {
+            attributes: ['columns']
+          }).then(async function(dataSource) {
+            let dataSourceColumns = dataSource.columns;
+
+            dataSourceColumns = dataSourceColumns.map(el => {
+              return {
+                id: el,
+                label: el
+              };
+            });
+
+            Fliplet.UI.Typeahead('#target', {
+              placeholder: 'choose',
+              freeInput: false,
+              options: dataSourceColumns,
+              value: []
+            });
+          });
+        }
       }
+    },
+    {
+      type: 'html',
+      html: `<div class="form-group fl-typeahead" id="sortingOptions">
+        <select placeholder="Start typing..."></select>
+      </div>`
     },
     {
       type: 'html',

@@ -16,7 +16,8 @@
     "dependencies": [
       "fliplet-core",
       "fliplet-studio-ui",
-      "fliplet-datasources"
+      "fliplet-datasources",
+      "fliplet-ui-typeahead"
     ],
     "assets": [
       "js/interface.js"

@@ -67,7 +67,7 @@ Fliplet.Widget.generateInterface({
               };
             });
 
-            Fliplet.UI.Typeahead('#target', {
+            Fliplet.UI.Typeahead('#sortingOptions', {
               placeholder: 'choose',
               freeInput: false,
               options: dataSourceColumns,

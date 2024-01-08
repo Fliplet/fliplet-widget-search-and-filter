@@ -78,7 +78,6 @@ Fliplet.Widget.generateInterface({
       type: 'text',
       label: 'Searching Options Selected',
       ready: function() {
-        debugger;
         $($(this)[0].$el).find('[data-field="searchingOptionsSelected"]').hide();
       }
     },
@@ -142,6 +141,10 @@ Fliplet.Widget.generateInterface({
       label: 'Sorting Options Selected',
       ready: function() {
         $($(this)[0].$el).find('[data-field="sortingOptionsSelected"]').hide();
+
+        let instance = Fliplet.UI.Typeahead('#sortingOptions');
+
+        instance.set(this.val());
       }
     },
     {

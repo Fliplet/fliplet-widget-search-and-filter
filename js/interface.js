@@ -119,12 +119,23 @@ Fliplet.Widget.generateInterface({
               options: dataSourceColumns,
               value: []
             });
+
+            let instance = Fliplet.UI.Typeahead('#sortingOptions');
+
+            instance.change(function(value) {
+              Fliplet.Widget.getData().fields.sortingOptionsSelected = value;
+            });
           });
         }
 
         $(document).find('#sortingOptions').toggle(show);
         $(document).find('#sortingOptions').next('.selectize-control').toggle(show);
       }
+    },
+    {
+      name: 'sortingOptionsSelected',
+      type: 'text',
+      label: 'Sorting Options Selected'
     },
     {
       type: 'html',

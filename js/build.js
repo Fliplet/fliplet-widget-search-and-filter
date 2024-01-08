@@ -60,8 +60,6 @@ Fliplet.Widget.instance({
       // Initialize children components when this widget is ready
       let filterAndSearchContainer = this;
 
-      debugger;
-
       await Fliplet.Widget.initializeChildren(
         filterAndSearchContainer.$el,
         filterAndSearchContainer
@@ -73,7 +71,6 @@ Fliplet.Widget.instance({
         return Promise.reject('');
       }
 
-      debugger;
       filterAndSearchContainer.fields = _.assign(
         {
           isFilterOnDifferentScreen: [],
@@ -81,7 +78,8 @@ Fliplet.Widget.instance({
           allowSearching: [],
           allowSorting: [],
           bookmarksEnabled: [],
-          searchingOptionsSelected: []
+          searchingOptionsSelected: [],
+          sortingOptionsSelected: []
         },
         filterAndSearchContainer.fields
       );
@@ -101,9 +99,26 @@ Fliplet.Widget.instance({
       let bookmarksEnabled = filterAndSearchContainer.fields.bookmarksEnabled.includes(true);
       let allowSearching = filterAndSearchContainer.fields.allowSearching.includes(true);
       let allowSorting = filterAndSearchContainer.fields.allowSorting.includes(true);
+      let sortingOptionsSelected = filterAndSearchContainer.fields.sortingOptionsSelected.length;
 
       $('.search-filter-container').css('visibility', allowSearching ? 'visible' : 'hidden');
-      $('.sort-container').toggle(allowSorting);
+      $('.sort-container').toggle(allowSorting && sortingOptionsSelected);
+
+      if (allowSorting && sortingOptionsSelected) {
+        var list = '';
+
+        sortingOptionsSelected.forEach((el, index) => {
+          list += `<li class="sort-option" data-column="Name">
+          <span>${el}</span>
+          <div>
+            <i class="fa fa-sort sort-option-icon ${index === 0 ? 'active' : ''}"></i>
+            <i class="fa fa-sort-asc sort-option-icon"></i>
+            <i class="fa fa-sort-desc sort-option-icon"></i>
+          </div>
+        </li>`;
+        });
+        $(document).find('.sort-options-container ul').html(list);
+      }
 
       if (bookmarksEnabled) {
         $('.bookmark-icon.fa-bookmark-o').addClass('active');

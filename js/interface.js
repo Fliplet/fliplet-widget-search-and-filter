@@ -137,6 +137,7 @@ Fliplet.Widget.generateInterface({
       type: 'text',
       label: 'Sorting Options Selected',
       ready: function() {
+        debugger;
         $(this).hide();
       }
     },

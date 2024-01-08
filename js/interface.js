@@ -90,16 +90,16 @@ Fliplet.Widget.generateInterface({
     },
     {
       name: 'allowSorting',
-      type: 'toggle',
+      type: 'checkbox',
       label: 'List storting',
       options: [{ value: true, label: 'Allow users to sort the list' }],
-      default: false,
+      default: [],
       change: function(value) {
-        $(document).find('#sortingOptions').toggle(value);
-        $(document).find('#sortingOptions').next('.selectize-control').toggle(value);
+        $(document).find('#sortingOptions').toggle(value.includes(true));
+        $(document).find('#sortingOptions').next('.selectize-control').toggle(value.includes(true));
       },
       ready: function() {
-        let show = Fliplet.Helper.field('allowSorting').get();
+        let show = Fliplet.Helper.field('allowSorting').get().includes(true);
 
         if (show) {
           Fliplet.DataSources.getById(dataSourceId, {

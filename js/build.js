@@ -79,7 +79,8 @@ Fliplet.Widget.instance({
           action: { action: 'screen' },
           allowSearching: [],
           allowSorting: [],
-          bookmarksEnabled: []
+          bookmarksEnabled: [],
+          searchingOptionsSelected: []
         },
         filterAndSearchContainer.fields
       );

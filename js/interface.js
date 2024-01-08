@@ -60,12 +60,24 @@ Fliplet.Widget.generateInterface({
               options: dataSourceColumns,
               value: []
             });
+
+            let instance = Fliplet.UI.Typeahead('#searchingOptions');
+            let thisy = this;
+
+            instance.change(function() {
+              debugger;
+              thisy.searchingOptionsSelected = instance.get();
+            });
           });
         }
 
         $(document).find('#searchingOptions').toggle(show);
         $(document).find('#searchingOptions').next('.selectize-control').toggle(show);
       }
+    },
+    {
+      name: 'searchingOptionsSelected',
+      type: 'hidden'
     },
     {
       type: 'html',

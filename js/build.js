@@ -84,6 +84,7 @@ Fliplet.Widget.instance({
         },
         filterAndSearchContainer.fields
       );
+      debugger
 
       const bookmarkDataSourceName = 'Global Social Actions';
 

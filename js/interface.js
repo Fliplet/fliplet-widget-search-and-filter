@@ -62,11 +62,9 @@ Fliplet.Widget.generateInterface({
             });
 
             let instance = Fliplet.UI.Typeahead('#searchingOptions');
-            let thisy = this;
 
             instance.change(function() {
-              debugger;
-              thisy.searchingOptionsSelected = instance.get();
+              $(document).find('[data-field="searchingOptionsSelected"]').val(instance.get());
             });
           });
         }

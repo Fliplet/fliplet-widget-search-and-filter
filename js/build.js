@@ -99,12 +99,12 @@ Fliplet.Widget.instance({
       let bookmarksEnabled = filterAndSearchContainer.fields.bookmarksEnabled.includes(true);
       let allowSearching = filterAndSearchContainer.fields.allowSearching.includes(true);
       let allowSorting = filterAndSearchContainer.fields.allowSorting.includes(true);
-      let sortingOptionsSelected = filterAndSearchContainer.fields.sortingOptionsSelected.length;
+      let sortingOptionsSelected = filterAndSearchContainer.fields.sortingOptionsSelected;
 
       $('.search-filter-container').css('visibility', allowSearching ? 'visible' : 'hidden');
-      $('.sort-container').toggle(allowSorting && sortingOptionsSelected);
+      $('.sort-container').toggle(allowSorting && sortingOptionsSelected.length);
 
-      if (allowSorting && sortingOptionsSelected) {
+      if (allowSorting && sortingOptionsSelected.length) {
         var list = '';
 
         sortingOptionsSelected.forEach((el, index) => {

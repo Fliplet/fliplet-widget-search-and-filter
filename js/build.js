@@ -76,7 +76,7 @@ Fliplet.Widget.instance({
           isFilterOnDifferentScreen: [],
           action: { action: 'screen' },
           allowSearching: [],
-          allowSorting: [],
+          allowSorting: false,
           bookmarksEnabled: [],
           searchingOptionsSelected: [],
           sortingOptionsSelected: []
@@ -98,7 +98,7 @@ Fliplet.Widget.instance({
       const flipletQuery = Fliplet.Navigate.query;
       let bookmarksEnabled = filterAndSearchContainer.fields.bookmarksEnabled.includes(true);
       let allowSearching = filterAndSearchContainer.fields.allowSearching.includes(true);
-      let allowSorting = filterAndSearchContainer.fields.allowSorting.includes(true);
+      let allowSorting = filterAndSearchContainer.fields.allowSorting;
       let sortingOptionsSelected = filterAndSearchContainer.fields.sortingOptionsSelected;
 
       $('.search-filter-container').css('visibility', allowSearching ? 'visible' : 'hidden');

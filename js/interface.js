@@ -117,16 +117,19 @@ Fliplet.Widget.generateInterface({
               };
             });
 
+            var value = Fliplet.Widget.getData().fields.sortingOptionsSelected || [];
+
             Fliplet.UI.Typeahead('#sortingOptions', {
               freeInput: false,
               options: dataSourceColumns,
-              value: []
+              value
             });
 
             let instance = Fliplet.UI.Typeahead('#sortingOptions');
 
             instance.change(function(value) {
               Fliplet.Widget.getData().fields.sortingOptionsSelected = value;
+              instance.set(value, true);
             });
           });
         }
@@ -140,12 +143,7 @@ Fliplet.Widget.generateInterface({
       type: 'text',
       label: 'Sorting Options Selected',
       ready: function() {
-        debugger;
         $($(this)[0].$el).find('[data-field="sortingOptionsSelected"]').hide();
-
-        let instance = Fliplet.UI.Typeahead('#sortingOptions');
-
-        instance.set(this.val(), true);
       }
     },
     {

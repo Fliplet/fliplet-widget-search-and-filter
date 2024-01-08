@@ -64,7 +64,7 @@ Fliplet.Widget.generateInterface({
             let instance = Fliplet.UI.Typeahead('#searchingOptions');
 
             instance.change(function() {
-              $(document).find('[data-field="searchingOptionsSelected"]').val(instance.get());
+              $(document).find('[data-field="searchingOptionsSelected"] input').val(instance.get());
             });
           });
         }

@@ -28,7 +28,8 @@
       "jquery",
       "bootstrap",
       "fliplet-core",
-      "fliplet-helper"
+      "fliplet-helper",
+      "fliplet-ui-typeahead"
     ],
     "assets": [
       "css/build.css",

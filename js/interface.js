@@ -144,6 +144,7 @@ Fliplet.Widget.generateInterface({
 
         let instance = Fliplet.UI.Typeahead('#sortingOptions');
 
+        debugger;
         instance.set(this.val());
       }
     },

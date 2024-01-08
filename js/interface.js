@@ -75,7 +75,7 @@ Fliplet.Widget.generateInterface({
     },
     {
       name: 'searchingOptionsSelected',
-      type: 'hidden'
+      type: 'text'
     },
     {
       type: 'html',

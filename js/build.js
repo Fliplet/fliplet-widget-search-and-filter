@@ -73,6 +73,7 @@ Fliplet.Widget.instance({
         return Promise.reject('');
       }
 
+      debugger;
       filterAndSearchContainer.fields = _.assign(
         {
           isFilterOnDifferentScreen: [],
@@ -84,7 +85,7 @@ Fliplet.Widget.instance({
         },
         filterAndSearchContainer.fields
       );
-      debugger
+      debugger;
 
       const bookmarkDataSourceName = 'Global Social Actions';
 

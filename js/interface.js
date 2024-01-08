@@ -69,7 +69,7 @@ Fliplet.Widget.generateInterface({
     },
     {
       type: 'html',
-      html: `<div class="form-group fl-typeahead component-config-field-margin" id="searchingOptions">
+      html: `<div class="form-group fl-typeahead typeahead-config-field-margin" id="searchingOptions">
         <select placeholder="Start typing..."></select>
       </div>`
     },
@@ -117,7 +117,7 @@ Fliplet.Widget.generateInterface({
     },
     {
       type: 'html',
-      html: `<div class="form-group fl-typeahead component-config-field-margin" id="sortingOptions">
+      html: `<div class="form-group fl-typeahead typeahead-config-field-margin" id="sortingOptions">
         <select placeholder="Start typing..."></select>
       </div>`
     },

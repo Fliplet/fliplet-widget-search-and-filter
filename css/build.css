@@ -1,4 +1,4 @@
-.component-config-field-margin {
+.typeahead-config-field-margin + .selectize-control {
   margin: 0 15px;
   width: calc(100% - 30px);
 }

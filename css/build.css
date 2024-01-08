@@ -1,11 +1,3 @@
-[data-field="searchingOptionsSelected"] {
-  display: none;
-}
-
-[data-field="sortingOptionsSelected"] {
-  display: none;
-}
-
 fl-helper[name="search-and-filter"] .sort-option-icon {
   display: none;
 }

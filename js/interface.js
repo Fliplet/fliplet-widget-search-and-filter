@@ -55,16 +55,19 @@ Fliplet.Widget.generateInterface({
               };
             });
 
+            var value = Fliplet.Widget.getData().fields.searchingOptionsSelected || [];
+
             Fliplet.UI.Typeahead('#searchingOptions', {
               freeInput: false,
               options: dataSourceColumns,
-              value: []
+              value
             });
 
             let instance = Fliplet.UI.Typeahead('#searchingOptions');
 
             instance.change(function(value) {
               Fliplet.Widget.getData().fields.searchingOptionsSelected = value;
+              instance.set(value, true);
             });
           });
         }

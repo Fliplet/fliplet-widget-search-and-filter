@@ -1,6 +1,5 @@
-.interface .form-horizontal .selectize-input {
-  margin: 0 15px!important;
-  width: calc(100% - 30px)!important;
+.typeahead-config-field-margin {
+  margin: auto!important;
 }
 
 fl-helper[name="search-and-filter"] .sort-option-icon {

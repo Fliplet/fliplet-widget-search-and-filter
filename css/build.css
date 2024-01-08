@@ -1,3 +1,8 @@
+.component-config-field-margin {
+  margin: 0 15px;
+  width: calc(100% - 30px);
+}
+
 fl-helper[name="search-and-filter"] .sort-option-icon {
   display: none;
 }

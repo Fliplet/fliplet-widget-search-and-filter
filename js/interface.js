@@ -34,7 +34,44 @@ Fliplet.Widget.generateInterface({
       type: 'checkbox',
       label: 'List search',
       options: [{ value: true, label: 'Allow users to search the list' }],
-      default: []
+      default: [],
+      change: function(value) {
+        $(document).find('#searchingOptions').toggle(value.includes(true));
+        $(document).find('#searchingOptions').next('.selectize-control').toggle(value.includes(true));
+      },
+      ready: function() {
+        let show = Fliplet.Helper.field('allowSearching').get().includes(true);
+
+        if (show) {
+          Fliplet.DataSources.getById(dataSourceId, {
+            attributes: ['columns']
+          }).then(async function(dataSource) {
+            let dataSourceColumns = dataSource.columns;
+
+            dataSourceColumns = dataSourceColumns.map(el => {
+              return {
+                id: el,
+                label: el
+              };
+            });
+
+            Fliplet.UI.Typeahead('#searchingOptions', {
+              freeInput: false,
+              options: dataSourceColumns,
+              value: []
+            });
+          });
+        }
+
+        $(document).find('#searchingOptions').toggle(show);
+        $(document).find('#searchingOptions').next('.selectize-control').toggle(show);
+      }
+    },
+    {
+      type: 'html',
+      html: `<div class="form-group fl-typeahead component-config-field-margin" id="searchingOptions">
+        <select placeholder="Start typing..."></select>
+      </div>`
     },
     {
       type: 'html',
@@ -67,7 +104,6 @@ Fliplet.Widget.generateInterface({
             });
 
             Fliplet.UI.Typeahead('#sortingOptions', {
-              placeholder: 'choose',
               freeInput: false,
               options: dataSourceColumns,
               value: []
@@ -81,7 +117,7 @@ Fliplet.Widget.generateInterface({
     },
     {
       type: 'html',
-      html: `<div class="form-group fl-typeahead" id="sortingOptions">
+      html: `<div class="form-group fl-typeahead component-config-field-margin" id="sortingOptions">
         <select placeholder="Start typing..."></select>
       </div>`
     },

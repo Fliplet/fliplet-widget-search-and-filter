@@ -48,6 +48,7 @@ Fliplet.Widget.generateInterface({
       default: [],
       change: function(value) {
         $(document).find('#sortingOptions').toggle(value.includes(true));
+        $(document).find('#sortingOptions').next('.selectize-control').toggle(value.includes(true));
       },
       ready: function() {
         let show = Fliplet.Helper.field('allowSorting').get().includes(true);

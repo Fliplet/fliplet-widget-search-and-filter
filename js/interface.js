@@ -52,8 +52,6 @@ Fliplet.Widget.generateInterface({
       ready: function() {
         let show = Fliplet.Helper.field('allowSorting').get().includes(true);
 
-        $(document).find('#sortingOptions').toggle(show);
-
         if (show) {
           Fliplet.DataSources.getById(dataSourceId, {
             attributes: ['columns']
@@ -75,6 +73,9 @@ Fliplet.Widget.generateInterface({
             });
           });
         }
+
+        $(document).find('#sortingOptions').toggle(show);
+        $(document).find('#sortingOptions').next('.selectize-control').toggle(show);
       }
     },
     {

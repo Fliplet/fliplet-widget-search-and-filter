@@ -62,9 +62,12 @@ Fliplet.Widget.generateInterface({
             });
 
             let instance = Fliplet.UI.Typeahead('#searchingOptions');
+            var thisy = this;
 
-            instance.change(function() {
-              $(document).find('[data-field="searchingOptionsSelected"] input').val(instance.get());
+            instance.change(function(value) {
+              console.log(thisy);
+              debugger;
+              $(document).find('[data-field="searchingOptionsSelected"] input').val(value);
             });
           });
         }
@@ -75,7 +78,8 @@ Fliplet.Widget.generateInterface({
     },
     {
       name: 'searchingOptionsSelected',
-      type: 'text'
+      type: 'text',
+      label: 'Searching Options Selected'
     },
     {
       type: 'html',

@@ -140,11 +140,11 @@ Fliplet.Widget.generateInterface({
       type: 'text',
       label: 'Sorting Options Selected',
       ready: function() {
+        debugger;
         $($(this)[0].$el).find('[data-field="sortingOptionsSelected"]').hide();
 
         let instance = Fliplet.UI.Typeahead('#sortingOptions');
 
-        debugger;
         instance.set(this.val());
       }
     },

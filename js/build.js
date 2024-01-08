@@ -102,7 +102,7 @@ Fliplet.Widget.instance({
       let sortingOptionsSelected = filterAndSearchContainer.fields.sortingOptionsSelected;
 
       $('.search-filter-container').css('visibility', allowSearching ? 'visible' : 'hidden');
-      $('.sort-container').toggle(allowSorting && sortingOptionsSelected.length);
+      $('.sort-container').toggle(allowSorting && sortingOptionsSelected.length ? true : false);
 
       if (allowSorting && sortingOptionsSelected.length) {
         var list = '';

@@ -298,14 +298,14 @@ Fliplet.Widget.instance({
         if (activeSortAsc.length) {
           orderBy = [
             [
-              `data['${activeSortAsc.closest('.sort-option').data('column')}']`,
+              `data.${activeSortAsc.closest('.sort-option').data('column')}`,
               'ASC'
             ]
           ];
         } else if (activeSortDesc.length) {
           orderBy = [
             [
-              `data['${activeSortDesc.closest('.sort-option').data('column')}']`,
+              `data.${activeSortDesc.closest('.sort-option').data('column')}`,
               'DESC'
             ]
           ];

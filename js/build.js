@@ -41,6 +41,8 @@ Fliplet.Widget.instance({
       // Initialize children components when this widget is ready
       let filterAndSearchContainer = this;
 
+      // TODO check for list repeater here and remove all other if statements
+
       await Fliplet.Widget.initializeChildren(
         filterAndSearchContainer.$el,
         filterAndSearchContainer
@@ -67,14 +69,13 @@ Fliplet.Widget.instance({
 
       const bookmarkDataSourceName = 'Global Social Actions';
 
-      const screenAction = filterAndSearchContainer.fields.action;
       const isFilterOnDifferentScreen
         = filterAndSearchContainer.fields.isFilterOnDifferentScreen.includes(
           true
         );
 
       const filterContainerPage = isFilterOnDifferentScreen
-        ? screenAction
+        ? filterAndSearchContainer.fields.action
         : Fliplet.Env.get('pageId');
       const lfdPage = Fliplet.Env.get('pageId');
       const flipletQuery = Fliplet.Navigate.query;
@@ -103,16 +104,15 @@ Fliplet.Widget.instance({
         $('.bookmark-icon.fa-bookmark-o').addClass('active');
       }
 
-      applyFilters();
-
       clickEvents();
       keyEvents();
+      applyFilters();
 
       function populateSortOptions() {
         var list = '';
 
         sortingOptionsSelected.forEach((el, index) => {
-          list += `<li class="sort-option" data-column="Name">
+          list += `<li class="sort-option" data-column="${el}">
           <span>${el}</span>
           <div>
             <i class="fa fa-sort sort-option-icon ${index === 0 ? 'active' : ''}"></i>
@@ -240,7 +240,6 @@ Fliplet.Widget.instance({
 
       function applyBookmarkedDataAndFilters() {
         // TODO filter bookmarks data
-
         if (Fliplet.ListRepeater) {
           return Fliplet.ListRepeater.get().then(function(repeater) {
             let where = {};
@@ -317,6 +316,7 @@ Fliplet.Widget.instance({
         }
         // END OF SORT ASC/DESC BY COLUMN
 
+        // DYNAMIC PARAMETERS
         const containsDynamicKeys = _.some(dynamicQueryValues, function(key) {
           return flipletQuery.hasOwnProperty(key);
         });
@@ -380,6 +380,7 @@ Fliplet.Widget.instance({
 
           return query;
         }
+        // END OF DYNAMIC PARAMETERS
 
         if (flipletQuery.filtersApplied) {
           return Fliplet.App.Storage.get(lfdPage).then(function(value) {

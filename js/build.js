@@ -38,6 +38,8 @@ Fliplet.Widget.instance({
       }
     },
     ready: async function() {
+      // TODO check with product how to apply empty LFD to be rendered
+
       // Initialize children components when this widget is ready
       let filterAndSearchContainer = this;
 
@@ -217,17 +219,11 @@ Fliplet.Widget.instance({
         }
       }
 
-      Fliplet.Hooks.on('repeaterDataRetrieved', function(options) {
-        console.log(options);
-        debugger;
-      });
-
       async function applyFilters() {
         let query = await collectQuery();
 
         debugger;
 
-        // TODO apply filters
         if (Fliplet.ListRepeater) {
           return Fliplet.ListRepeater.get().then(function(repeater) {
             repeater.rows.query.where = query.where;

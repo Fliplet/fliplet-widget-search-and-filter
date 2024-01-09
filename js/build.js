@@ -260,7 +260,7 @@ Fliplet.Widget.instance({
                 .then(function(records) {
                   debugger;
 
-                  if (records) {
+                  if (records.length) {
                     repeater.rows.query = where;
                     repeater.rows.update();
                   } else {

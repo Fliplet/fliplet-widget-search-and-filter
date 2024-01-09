@@ -398,7 +398,7 @@ Fliplet.Widget.instance({
             });
           });
 
-          query.where.$or = orCondition;
+          where.$or = orCondition;
         }
         // END OF SEARCH INPUT
 

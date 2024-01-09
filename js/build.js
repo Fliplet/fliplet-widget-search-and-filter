@@ -16,24 +16,7 @@ Fliplet.Widget.instance({
         <div class="sort-container">
           <i class="fa fa-sort-amount-desc cursor-pointer sort-icon"></i>
           <div class="sort-options-container">
-            <ul>
-              <li class="sort-option" data-column="Name">
-                <span>Name</span>
-                <div>
-                  <i class="fa fa-sort sort-option-icon active"></i>
-                  <i class="fa fa-sort-asc sort-option-icon"></i>
-                  <i class="fa fa-sort-desc sort-option-icon"></i>
-                </div>
-              </li>
-              <li class="sort-option" data-column="Surname">
-                <span>Surname</span>
-                <div>
-                  <i class="fa fa-sort sort-option-icon active"></i>
-                  <i class="fa fa-sort-asc sort-option-icon"></i>
-                  <i class="fa fa-sort-desc sort-option-icon"></i>
-                </div>
-              </li>
-            </ul>
+            <ul></ul>
           </div>
         </div>
       </div>
@@ -49,8 +32,6 @@ Fliplet.Widget.instance({
           container
         ) {
           return container.connection().then(function(connection) {
-            debugger;
-
             return connection.id;
           });
         });
@@ -83,28 +64,51 @@ Fliplet.Widget.instance({
         },
         filterAndSearchContainer.fields
       );
-      debugger;
 
       const bookmarkDataSourceName = 'Global Social Actions';
 
       const screenAction = filterAndSearchContainer.fields.action;
       const isFilterOnDifferentScreen
-        = filterAndSearchContainer.fields.isFilterOnDifferentScreen.includes(true);
+        = filterAndSearchContainer.fields.isFilterOnDifferentScreen.includes(
+          true
+        );
 
       const filterContainerPage = isFilterOnDifferentScreen
         ? screenAction
         : Fliplet.Env.get('pageId');
       const lfdPage = Fliplet.Env.get('pageId');
       const flipletQuery = Fliplet.Navigate.query;
-      let bookmarksEnabled = filterAndSearchContainer.fields.bookmarksEnabled.includes(true);
-      let allowSearching = filterAndSearchContainer.fields.allowSearching.includes(true);
-      let allowSorting = filterAndSearchContainer.fields.allowSorting.includes(true);
-      let sortingOptionsSelected = filterAndSearchContainer.fields.sortingOptionsSelected;
+      let bookmarksEnabled
+        = filterAndSearchContainer.fields.bookmarksEnabled.includes(true);
+      let allowSearching
+        = filterAndSearchContainer.fields.allowSearching.includes(true);
+      let allowSorting
+        = filterAndSearchContainer.fields.allowSorting.includes(true);
+      let sortingOptionsSelected
+        = filterAndSearchContainer.fields.sortingOptionsSelected;
 
-      $('.search-filter-container').css('visibility', allowSearching ? 'visible' : 'hidden');
-      $('.sort-container').toggle(allowSorting && sortingOptionsSelected.length ? true : false);
+      $('.search-filter-container').css(
+        'visibility',
+        allowSearching ? 'visible' : 'hidden'
+      );
+      $('.sort-container').toggle(
+        allowSorting && sortingOptionsSelected.length ? true : false
+      );
 
       if (allowSorting && sortingOptionsSelected.length) {
+        populateSortOptions();
+      }
+
+      if (bookmarksEnabled) {
+        $('.bookmark-icon.fa-bookmark-o').addClass('active');
+      }
+
+      applyFilters();
+
+      clickEvents();
+      keyEvents();
+
+      function populateSortOptions() {
         var list = '';
 
         sortingOptionsSelected.forEach((el, index) => {
@@ -120,83 +124,84 @@ Fliplet.Widget.instance({
         $(document).find('.sort-options-container ul').html(list);
       }
 
-      if (bookmarksEnabled) {
-        $('.bookmark-icon.fa-bookmark-o').addClass('active');
+      function keyEvents() {
+        $(document)
+          .find('.search-input')
+          .on('keyup', function(e) {
+            if (e.keyCode === 13 && $(this).val()) {
+              bookmarksEnabled
+              && $('.active.bookmark-icon').hasClass('fa-bookmark')
+                ? applyBookmarkedDataAndFilters()
+                : applyFilters();
+            }
+          });
       }
 
-      applyFilters();
-
-      $(document)
-        .find('.search-input')
-        .on('keyup', function(e) {
-          if (e.keyCode === 13 && $(this).val()) {
-            bookmarksEnabled && $('.active.bookmark-icon').hasClass('fa-bookmark')
+      function clickEvents() {
+        $(document)
+          .find('.search-button')
+          .on('click', function() {
+            bookmarksEnabled
+            && $('.active.bookmark-icon').hasClass('fa-bookmark')
               ? applyBookmarkedDataAndFilters()
               : applyFilters();
-          }
-        });
+          });
 
-      $(document)
-        .find('.search-button')
-        .on('click', function() {
-          bookmarksEnabled && $('.active.bookmark-icon').hasClass('fa-bookmark')
-            ? applyBookmarkedDataAndFilters()
-            : applyFilters();
-        });
+        $(document)
+          .find('.bookmark-icon')
+          .on('click', function() {
+            $('.bookmark-icon').toggleClass('active');
 
-      $(document)
-        .find('.bookmark-icon')
-        .on('click', function() {
-          $('.bookmark-icon').toggleClass('active');
+            if ($(this).hasClass('fa-bookmark-o')) {
+              applyBookmarkedDataAndFilters();
+            } else {
+              applyFilters();
+            }
+          });
 
-          if ($(this).hasClass('fa-bookmark-o')) {
-            applyBookmarkedDataAndFilters();
-          } else {
-            applyFilters();
-          }
-        });
+        $(document)
+          .find('.filter-icon')
+          .on('click', function() {
+            if (isFilterOnDifferentScreen) {
+              Fliplet.Navigate.screen(filterContainerPage.page, {
+                query: filterContainerPage.query || '',
+                transition: filterContainerPage.transition || 'fade'
+              });
+            } else {
+              bookmarksEnabled
+              && $('.active.bookmark-icon').hasClass('fa-bookmark')
+                ? applyBookmarkedDataAndFilters()
+                : applyFilters();
+            }
+          });
 
-      $(document)
-        .find('.filter-icon')
-        .on('click', function() {
-          if (isFilterOnDifferentScreen) {
-            Fliplet.Navigate.screen(filterContainerPage.page, {
-              query: filterContainerPage.query || '',
-              transition: filterContainerPage.transition || 'fade'
-            });
-          } else {
-            bookmarksEnabled && $('.active.bookmark-icon').hasClass('fa-bookmark')
+        $(document)
+          .find('.sort-icon')
+          .on('click', function() {
+            $('.sort-options-container').toggle();
+          });
+
+        $(document)
+          .find('.sort-option')
+          .on('click', function() {
+            if ($(this).find('.sort-option-icon.active').hasClass('fa-sort')) {
+              resetSortState($(this));
+              $(this).find('.fa-sort-asc').addClass('active');
+            } else if (
+              $(this).find('.sort-option-icon.active').hasClass('fa-sort-asc')
+            ) {
+              resetSortState($(this));
+              $(this).find('.fa-sort-desc').addClass('active');
+            } else {
+              resetSortState($(this), false);
+            }
+
+            bookmarksEnabled
+            && $('.active.bookmark-icon').hasClass('fa-bookmark')
               ? applyBookmarkedDataAndFilters()
               : applyFilters();
-          }
-        });
-
-      $(document)
-        .find('.sort-icon')
-        .on('click', function() {
-          $('.sort-options-container').toggle();
-        });
-
-      $(document)
-        .find('.sort-option')
-        .on('click', function() {
-          if ($(this).find('.sort-option-icon.active').hasClass('fa-sort')) {
-            resetSortState($(this));
-            $(this).find('.fa-sort-asc').addClass('active');
-          } else if (
-            $(this).find('.sort-option-icon.active').hasClass('fa-sort-asc')
-          ) {
-            resetSortState($(this));
-
-            $(this).find('.fa-sort-desc').addClass('active');
-          } else {
-            resetSortState($(this), false);
-          }
-
-          bookmarksEnabled && $('.active.bookmark-icon').hasClass('fa-bookmark')
-            ? applyBookmarkedDataAndFilters()
-            : applyFilters();
-        });
+          });
+      }
 
       function resetSortState($this, reset = true) {
         $(document).find('.sort-option-icon').removeClass('active');
@@ -244,7 +249,11 @@ Fliplet.Widget.instance({
               bookmarkDataSourceName
             ).then(function(connection) {
               return connection
-                .find({ where: { 'Data Source Id': filterAndSearchContainer.dataSourceId } })
+                .find({
+                  where: {
+                    'Data Source Id': filterAndSearchContainer.dataSourceId
+                  }
+                })
                 .then(function(records) {
                   debugger;
 
@@ -325,8 +334,11 @@ Fliplet.Widget.instance({
                   // e.g. newDynamicListFilterColumn=Tags,Category&newDynamicListFilterValue=[Foo,Buzz],Enterprise%20software
                   // selects the filters Tags=Foo, Tags=Buzz and Category=Enterprise software.
                   let columns = flipletQuery[key].split(',');
-                  let values
-                    = flipletQuery['newDynamicListFilterValue'] ? flipletQuery['newDynamicListFilterValue'].slice(1, -1).split(',') : [];
+                  let values = flipletQuery['newDynamicListFilterValue']
+                    ? flipletQuery['newDynamicListFilterValue']
+                      .slice(1, -1)
+                      .split(',')
+                    : [];
 
                   if (columns && values && columns.length !== values.length) {
                     console.log(
@@ -351,7 +363,7 @@ Fliplet.Widget.instance({
 
                   if (includedListSearchColumn) {
                     queryValue[flipletQuery['newDynamicListSearchColumn']]
-                        = flipletQuery['newDynamicListSearchValue'];
+                      = flipletQuery['newDynamicListSearchValue'];
                   } else {
                     // collect from component configuration
                   }

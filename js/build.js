@@ -217,6 +217,11 @@ Fliplet.Widget.instance({
         }
       }
 
+      Fliplet.Hooks.on('repeaterDataRetrieved', function(options) {
+        console.log(options);
+        debugger;
+      });
+
       async function applyFilters() {
         let query = await collectQuery();
 

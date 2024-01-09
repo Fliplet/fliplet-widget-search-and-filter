@@ -83,6 +83,8 @@ Fliplet.Widget.instance({
         = filterAndSearchContainer.fields.bookmarksEnabled.includes(true);
       let allowSearching
         = filterAndSearchContainer.fields.allowSearching.includes(true);
+      let searchingOptionsSelected
+      = filterAndSearchContainer.fields.searchingOptionsSelected;
       let allowSorting
         = filterAndSearchContainer.fields.allowSorting.includes(true);
       let sortingOptionsSelected
@@ -128,7 +130,9 @@ Fliplet.Widget.instance({
         $(document)
           .find('.search-input')
           .on('keyup', function(e) {
-            if (e.keyCode === 13 && $(this).val()) {
+            var searchValue = $(this).val();
+
+            if (e.keyCode === 13 && searchValue) {
               bookmarksEnabled
               && $('.active.bookmark-icon').hasClass('fa-bookmark')
                 ? applyBookmarkedDataAndFilters()
@@ -381,6 +385,22 @@ Fliplet.Widget.instance({
           return query;
         }
         // END OF DYNAMIC PARAMETERS
+
+        // SEARCH INPUT
+        var searchValue = $(document).find('.search-input').val();
+
+        if (searchValue && allowSearching && searchingOptionsSelected.length) {
+          var orCondition = [];
+
+          searchingOptionsSelected.forEach(el => {
+            orCondition.push({
+              [el]: searchValue
+            });
+          });
+
+          query.where.$or = orCondition;
+        }
+        // END OF SEARCH INPUT
 
         if (flipletQuery.filtersApplied) {
           return Fliplet.App.Storage.get(lfdPage).then(function(value) {

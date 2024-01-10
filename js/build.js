@@ -425,6 +425,15 @@ Fliplet.Widget.instance({
 
         return query;
       }
+
+
+      Fliplet.Hooks.on('beforeFormSubmit', function() {
+        if (!isFilterOnDifferentScreen) {
+          setTimeout(() => {
+            applyFilters();
+          }, 500);
+        }
+      });
     }
   }
 });

@@ -405,7 +405,15 @@ Fliplet.Widget.instance({
 
         if (flipletQuery.filtersApplied) {
           return Fliplet.App.Storage.get(lfdPage).then(function(value) {
-            query.where = value;
+            for (const key in value) {
+              if (Object.hasOwnProperty.call(value, key)) {
+                const element = value[key];
+
+                where[key] = element;
+              }
+            }
+
+            query.where = where;
 
             return query;
           });

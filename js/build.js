@@ -403,13 +403,15 @@ Fliplet.Widget.instance({
         }
         // END OF SEARCH INPUT
 
-        if (flipletQuery.filtersApplied) {
+        if (flipletQuery.filtersApplied || !isFilterOnDifferentScreen) {
           return Fliplet.App.Storage.get(lfdPage).then(function(value) {
-            for (const key in value) {
-              if (Object.hasOwnProperty.call(value, key)) {
-                const element = value[key];
+            if (value) {
+              for (const key in value) {
+                if (Object.hasOwnProperty.call(value, key)) {
+                  const element = value[key];
 
-                where[key] = element;
+                  where[key] = element;
+                }
               }
             }
 
@@ -423,11 +425,6 @@ Fliplet.Widget.instance({
 
         return query;
       }
-
-
-      Fliplet.Hooks.on('beforeFormSubmit', function() {
-        debugger;
-      });
     }
   }
 });

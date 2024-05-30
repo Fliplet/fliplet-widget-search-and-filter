@@ -240,7 +240,7 @@ Fliplet.Widget.instance({
 
         Fliplet.UI.Toast('Please add List Repeater component');
 
-        return Promise.reject('Please add List Repeater component');
+        return Promise.reject('');
       }
 
       function applyBookmarkedDataAndFilters() {

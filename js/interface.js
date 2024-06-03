@@ -1,60 +1,41 @@
-// // This function is used to generate the interface for the widget
-// var dataSourceColumns = [];
-var dataSourceId = 696452; // TODO get dsId from the dynamic container
-var dataSourceName = 'Users'; // TODO get dsId from the dynamic container
+Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' } }).then(async widgets => {
+  if (widgets.length === 0) {
+    return Fliplet.UI.Toast('This component needs to be placed inside a Dynamic Data Container');
+  }
 
-// if (Fliplet.DynamicContainer) {
-//   this.dataSourceId = await Fliplet.DynamicContainer.get().then(function(
-//     container
-//   ) {
-//     return container.connection().then(function(connection) {
-//       debugger;
+  const dynamicContainer = widgets[0];
 
-//       return connection.id;
-//     });
-//   });
-// }
-// Fliplet.DataSources.getById(dataSourceId, {
-//   attributes: ['columns']
-// }).then(async function(dataSource) {
-//   debugger;
+  return Fliplet.DataSources.getById(dynamicContainer && dynamicContainer.dataSourceId, {
+    attributes: ['name', 'columns']
+  }).then(dataSource => {
+    const dataSourceColumns = dataSource.map(el => {
+      return {
+        id: el,
+        label: el
+      };
+    });
 
-//   dataSourceColumns = dataSource.columns;
-Fliplet.Widget.generateInterface({
-  title: 'Search and filter',
-  fields: [
-    {
-      type: 'html',
-      html: `<p style="color: #A5A5A5; font-size: 12px; font-weight: 400;">List from ${dataSourceName}(ID: <span class="data-source-id">${dataSourceId}</span>)</p>
+    return Fliplet.Widget.generateInterface({
+      title: 'Search and filter',
+      fields: [
+        {
+          type: 'html',
+          html: `<p style="color: #A5A5A5; font-size: 12px; font-weight: 400;">List from ${dataSource.name}(ID: <span class="data-source-id">${dynamicContainer.dataSourceId}</span>)</p>
                     <p style="font-size: 10px; font-weight: 400; color: #E7961E;">To change Data source go to Data Container Settings</p>
                     <hr/>`
-    },
-    {
-      name: 'allowSearching',
-      type: 'checkbox',
-      label: 'List search',
-      options: [{ value: true, label: 'Allow users to search the list' }],
-      default: [],
-      change: function(value) {
-        $(document).find('#searchingOptions').toggle(value.includes(true));
-        $(document).find('#searchingOptions').next('.selectize-control').toggle(value.includes(true));
-      },
-      ready: function() {
-        let show = Fliplet.Helper.field('allowSearching').get().includes(true);
-
-        if (show) {
-          Fliplet.DataSources.getById(dataSourceId, {
-            attributes: ['columns']
-          }).then(async function(dataSource) {
-            let dataSourceColumns = dataSource.columns;
-
-            dataSourceColumns = dataSourceColumns.map(el => {
-              return {
-                id: el,
-                label: el
-              };
-            });
-
+        },
+        {
+          name: 'allowSearching',
+          type: 'checkbox',
+          label: 'List search',
+          options: [{ value: true, label: 'Allow users to search the list' }],
+          default: [],
+          change: function(value) {
+            $(document).find('#searchingOptions').toggle(value.includes(true));
+            $(document).find('#searchingOptions').next('.selectize-control').toggle(value.includes(true));
+          },
+          ready: function() {
+            let show = Fliplet.Helper.field('allowSearching').get().includes(true);
             var value = Fliplet.Widget.getData().fields.searchingOptionsSelected || [];
 
             Fliplet.UI.Typeahead('#searchingOptions', {
@@ -69,57 +50,41 @@ Fliplet.Widget.generateInterface({
               Fliplet.Widget.getData().fields.searchingOptionsSelected = value;
               instance.set(value, true);
             });
-          });
-        }
 
-        $(document).find('#searchingOptions').toggle(show);
-        $(document).find('#searchingOptions').next('.selectize-control').toggle(show);
-      }
-    },
-    {
-      name: 'searchingOptionsSelected',
-      type: 'text',
-      label: 'Searching Options Selected',
-      ready: function() {
-        $($(this)[0].$el).find('[data-field="searchingOptionsSelected"]').hide();
-      }
-    },
-    {
-      type: 'html',
-      html: `<div class="form-group fl-typeahead" id="searchingOptions">
+            $(document).find('#searchingOptions').toggle(show);
+            $(document).find('#searchingOptions').next('.selectize-control').toggle(show);
+          }
+        },
+        {
+          name: 'searchingOptionsSelected',
+          type: 'text',
+          label: 'Searching Options Selected',
+          ready: function() {
+            $($(this)[0].$el).find('[data-field="searchingOptionsSelected"]').hide();
+          }
+        },
+        {
+          type: 'html',
+          html: `<div class="form-group fl-typeahead" id="searchingOptions">
         <select placeholder="Start typing..."></select>
       </div>`
-    },
-    {
-      type: 'html',
-      html: '<br/>'
-    },
-    {
-      name: 'allowSorting',
-      type: 'checkbox',
-      label: 'List storting',
-      options: [{ value: true, label: 'Allow users to sort the list' }],
-      default: [],
-      change: function(value) {
-        $(document).find('#sortingOptions').toggle(value.includes(true));
-        $(document).find('#sortingOptions').next('.selectize-control').toggle(value.includes(true));
-      },
-      ready: function() {
-        let show = Fliplet.Helper.field('allowSorting').get().includes(true);
-
-        if (show) {
-          Fliplet.DataSources.getById(dataSourceId, {
-            attributes: ['columns']
-          }).then(async function(dataSource) {
-            let dataSourceColumns = dataSource.columns;
-
-            dataSourceColumns = dataSourceColumns.map(el => {
-              return {
-                id: el,
-                label: el
-              };
-            });
-
+        },
+        {
+          type: 'html',
+          html: '<br/>'
+        },
+        {
+          name: 'allowSorting',
+          type: 'checkbox',
+          label: 'List storting',
+          options: [{ value: true, label: 'Allow users to sort the list' }],
+          default: [],
+          change: function(value) {
+            $(document).find('#sortingOptions').toggle(value.includes(true));
+            $(document).find('#sortingOptions').next('.selectize-control').toggle(value.includes(true));
+          },
+          ready: function() {
+            let show = Fliplet.Helper.field('allowSorting').get().includes(true);
             var value = Fliplet.Widget.getData().fields.sortingOptionsSelected || [];
 
             Fliplet.UI.Typeahead('#sortingOptions', {
@@ -134,63 +99,62 @@ Fliplet.Widget.generateInterface({
               Fliplet.Widget.getData().fields.sortingOptionsSelected = value;
               instance.set(value, true);
             });
-          });
-        }
 
-        $(document).find('#sortingOptions').toggle(show);
-        $(document).find('#sortingOptions').next('.selectize-control').toggle(show);
-      }
-    },
-    {
-      name: 'sortingOptionsSelected',
-      type: 'text',
-      label: 'Sorting Options Selected',
-      ready: function() {
-        $($(this)[0].$el).find('[data-field="sortingOptionsSelected"]').hide();
-      }
-    },
-    {
-      type: 'html',
-      html: `<div class="form-group fl-typeahead" id="sortingOptions">
+            $(document).find('#sortingOptions').toggle(show);
+            $(document).find('#sortingOptions').next('.selectize-control').toggle(show);
+          }
+        },
+        {
+          name: 'sortingOptionsSelected',
+          type: 'text',
+          label: 'Sorting Options Selected',
+          ready: function() {
+            $($(this)[0].$el).find('[data-field="sortingOptionsSelected"]').hide();
+          }
+        },
+        {
+          type: 'html',
+          html: `<div class="form-group fl-typeahead" id="sortingOptions">
         <select placeholder="Start typing..."></select>
       </div>`
-    },
-    {
-      type: 'html',
-      html: '<br/>'
-    },
-    {
-      name: 'bookmarksEnabled',
-      type: 'checkbox',
-      label: 'Bookmarks',
-      options: [{ value: true, label: 'Allow users to filter by bookmarks' }],
-      default: []
-    },
-    {
-      type: 'html',
-      html: '<br/>'
-    },
-    {
-      name: 'isFilterOnDifferentScreen',
-      type: 'checkbox',
-      label: 'Filter button',
-      options: [{ value: true, label: 'Filter is on another screen' }],
-      default: [],
-      change: function(value) {
-        Fliplet.Helper.field('action').toggle(value.includes(true));
-      },
-      ready: function() {
-        Fliplet.Helper.field('action').toggle(
-          Fliplet.Helper.field('isFilterOnDifferentScreen').get().includes(true)
-        );
-      }
-    },
-    {
-      name: 'action',
-      type: 'provider',
-      label: 'Select a screen with filter',
-      package: 'com.fliplet.link'
-    }
-  ]
+        },
+        {
+          type: 'html',
+          html: '<br/>'
+        },
+        {
+          name: 'bookmarksEnabled',
+          type: 'checkbox',
+          label: 'Bookmarks',
+          options: [{ value: true, label: 'Allow users to filter by bookmarks' }],
+          default: []
+        },
+        {
+          type: 'html',
+          html: '<br/>'
+        },
+        {
+          name: 'isFilterOnDifferentScreen',
+          type: 'checkbox',
+          label: 'Filter button',
+          options: [{ value: true, label: 'Filter is on another screen' }],
+          default: [],
+          change: function(value) {
+            Fliplet.Helper.field('action').toggle(value.includes(true));
+          },
+          ready: function() {
+            Fliplet.Helper.field('action').toggle(
+              Fliplet.Helper.field('isFilterOnDifferentScreen').get().includes(true)
+            );
+          }
+        },
+        {
+          name: 'action',
+          type: 'provider',
+          label: 'Select a screen with filter',
+          package: 'com.fliplet.link'
+        }
+      ]
+    });
+  });
 });
-

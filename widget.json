@@ -15,7 +15,6 @@
   "interface": {
     "dependencies": [
       "fliplet-core",
-      "fliplet-studio-ui",
       "fliplet-datasources",
       "fliplet-ui-typeahead"
     ],

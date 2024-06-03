@@ -8,7 +8,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
   return Fliplet.DataSources.getById(dynamicContainer && dynamicContainer.dataSourceId, {
     attributes: ['name', 'columns']
   }).then(dataSource => {
-    const dataSourceColumns = dataSource.map(el => {
+    const dataSourceColumns = dataSource.columns.map(el => {
       return {
         id: el,
         label: el

@@ -152,7 +152,14 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
           name: 'action',
           type: 'provider',
           label: 'Select a screen with filter',
-          package: 'com.fliplet.link'
+          package: 'com.fliplet.link',
+          data: function(value) {
+            return _.assign({}, value, {
+              options: {
+                actionLabel: 'Click action'
+              }
+            });
+          }
         }
       ]
     });

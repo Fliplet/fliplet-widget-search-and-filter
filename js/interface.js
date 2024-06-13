@@ -76,7 +76,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
         {
           name: 'allowSorting',
           type: 'checkbox',
-          label: 'List storting',
+          label: 'List sorting',
           options: [{ value: true, label: 'Allow users to sort the list' }],
           default: [],
           change: function(value) {

@@ -83,7 +83,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
             $(document).find('#sortingOptions').toggle(value.includes(true));
             $(document).find('#sortingOptions').next('.selectize-control').toggle(value.includes(true));
           },
-          ready: function() {
+          ready: function(x, y) {
             let show = Fliplet.Helper.field('allowSorting').get().includes(true);
             var value = Fliplet.Widget.getData().fields.sortingOptionsSelected || [];
 

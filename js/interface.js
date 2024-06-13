@@ -21,8 +21,8 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
         {
           type: 'html',
           html: `<p style="color: #A5A5A5; font-size: 12px; font-weight: 400;">List from ${dataSource.name}(ID: <span class="data-source-id">${dynamicContainer.dataSourceId}</span>)</p>
-                    <p style="font-size: 10px; font-weight: 400; color: #E7961E;">To change Data source go to Data Container Settings</p>
-                    <hr/>`
+                <p style="font-size: 10px; font-weight: 400; color: #E7961E;">To change Data source go to Data Container Settings</p>
+                <hr/>`
         },
         {
           name: 'allowSearching',
@@ -66,8 +66,8 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
         {
           type: 'html',
           html: `<div class="form-group fl-typeahead" id="searchingOptions">
-        <select placeholder="Start typing..."></select>
-      </div>`
+                  <select placeholder="Start typing..."></select>
+                </div>`
         },
         {
           type: 'html',
@@ -115,8 +115,8 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
         {
           type: 'html',
           html: `<div class="form-group fl-typeahead" id="sortingOptions">
-        <select placeholder="Start typing..."></select>
-      </div>`
+                  <select placeholder="Start typing..."></select>
+                </div>`
         },
         {
           type: 'html',

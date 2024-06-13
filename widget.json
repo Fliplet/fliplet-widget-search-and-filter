@@ -19,6 +19,7 @@
       "fliplet-ui-typeahead"
     ],
     "assets": [
+      "css/interface.css",
       "js/interface.js"
     ]
   },

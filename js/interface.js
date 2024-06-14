@@ -36,7 +36,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
           },
           ready: function() {
             let show = Fliplet.Helper.field('allowSearching').get().includes(true);
-            var value = Fliplet.Widget.getData().fields.searchingOptionsSelected || [];
+            var value = Fliplet.Widget.getData().searchingOptionsSelected || [];
 
             Fliplet.UI.Typeahead('#searchingOptions', {
               freeInput: false,
@@ -47,7 +47,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
             let instance = Fliplet.UI.Typeahead('#searchingOptions');
 
             instance.change(function(value) {
-              Fliplet.Widget.getData().fields.searchingOptionsSelected = value;
+              Fliplet.Widget.getData().searchingOptionsSelected = value;
               instance.set(value, true);
             });
 
@@ -83,9 +83,9 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
             $(document).find('#sortingOptions').toggle(value.includes(true));
             $(document).find('#sortingOptions').next('.selectize-control').toggle(value.includes(true));
           },
-          ready: function(x, y) {
+          ready: function() {
             let show = Fliplet.Helper.field('allowSorting').get().includes(true);
-            var value = Fliplet.Widget.getData().fields.sortingOptionsSelected || [];
+            var value = Fliplet.Widget.getData().sortingOptionsSelected || [];
 
             Fliplet.UI.Typeahead('#sortingOptions', {
               freeInput: false,
@@ -96,7 +96,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
             let instance = Fliplet.UI.Typeahead('#sortingOptions');
 
             instance.change(function(value) {
-              Fliplet.Widget.getData().fields.sortingOptionsSelected = value;
+              Fliplet.Widget.getData().sortingOptionsSelected = value;
               instance.set(value, true);
             });
 

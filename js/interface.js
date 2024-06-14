@@ -47,7 +47,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
             let instance = Fliplet.UI.Typeahead('#searchingOptions');
 
             instance.change(function(value) {
-              Fliplet.Widget.getData().searchingOptionsSelected = value;
+              Fliplet.Widget.getData().fields.searchingOptionsSelected = value;
               instance.set(value, true);
             });
 
@@ -96,7 +96,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
             let instance = Fliplet.UI.Typeahead('#sortingOptions');
 
             instance.change(function(value) {
-              Fliplet.Widget.getData().sortingOptionsSelected = value;
+              Fliplet.Widget.getData().fields.sortingOptionsSelected = value;
               instance.set(value, true);
             });
 

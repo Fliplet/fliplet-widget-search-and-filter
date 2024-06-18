@@ -222,8 +222,6 @@ Fliplet.Widget.instance({
       async function applyFilters() {
         let query = await collectQuery();
 
-        debugger;
-
         if (Fliplet.ListRepeater) {
           return Fliplet.ListRepeater.get().then(function(repeater) {
             repeater.rows.query.where = query.where;
@@ -259,8 +257,6 @@ Fliplet.Widget.instance({
                   }
                 })
                 .then(function(records) {
-                  debugger;
-
                   if (records.length) {
                     repeater.rows.query = where;
                     repeater.rows.update();
@@ -269,9 +265,7 @@ Fliplet.Widget.instance({
                     repeater.rows.update();
                   }
                 })
-                .catch(function() {
-                  debugger;
-                });
+                .catch(function() {});
             });
           });
         }

@@ -28,7 +28,8 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
           name: 'allowSearching',
           type: 'checkbox',
           label: 'List search',
-          options: [{ value: true, label: 'Allow users to search the list' }],
+          options: [{ value: true, label: 'Enable list search' }],
+          description: 'Select data columns to be available in search',
           default: [],
           change: function(value) {
             $(document).find('#searchingOptions').toggle(value.includes(true));
@@ -77,7 +78,8 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
           name: 'allowSorting',
           type: 'checkbox',
           label: 'List sorting',
-          options: [{ value: true, label: 'Allow users to sort the list' }],
+          options: [{ value: true, label: 'Enable list sort' }],
+          description: 'Select data columns to be available in sort',
           default: [],
           change: function(value) {
             $(document).find('#sortingOptions').toggle(value.includes(true));
@@ -126,7 +128,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
           name: 'bookmarksEnabled',
           type: 'checkbox',
           label: 'Bookmarks',
-          options: [{ value: true, label: 'Allow users to filter by bookmarks' }],
+          options: [{ value: true, label: 'Enable list filtering by bookmarks' }],
           default: []
         },
         {

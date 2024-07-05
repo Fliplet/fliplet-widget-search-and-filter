@@ -138,8 +138,9 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
         {
           name: 'isFilterOnDifferentScreen',
           type: 'checkbox',
-          label: 'Filter button',
-          options: [{ value: true, label: 'Filter is on another screen' }],
+          label: 'List filtering',
+          description: 'Note that list filter needs to be created separately: add filter container inside data container. Add form fields to create your filters.',
+          options: [{ value: true, label: 'List Filter is on another screen' }],
           default: [],
           change: function(value) {
             Fliplet.Helper.field('action').toggle(value.includes(true));

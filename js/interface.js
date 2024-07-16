@@ -29,7 +29,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
           type: 'checkbox',
           label: 'List search',
           options: [{ value: true, label: 'Enable list search' }],
-          // description: 'Select data columns to be available in search',
+          description: 'Select data columns to be available in search',
           default: [],
           change: function(value) {
             $(document).find('#searchingOptions').toggle(value.includes(true));
@@ -57,10 +57,6 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
           }
         },
         {
-          type: 'html',
-          html: '<p class="help-block">Select data columns to be available in search</p>'
-        },
-        {
           name: 'searchingOptionsSelected',
           type: 'text',
           label: 'Searching Options Selected',
@@ -83,7 +79,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
           type: 'checkbox',
           label: 'List sorting',
           options: [{ value: true, label: 'Enable list sort' }],
-          // description: 'Select data columns to be available in sort',
+          description: 'Select data columns to be available in sort',
           default: [],
           change: function(value) {
             $(document).find('#sortingOptions').toggle(value.includes(true));
@@ -109,10 +105,6 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
             $(document).find('#sortingOptions').toggle(show);
             $(document).find('#sortingOptions').next('.selectize-control').toggle(show);
           }
-        },
-        {
-          type: 'html',
-          html: '<p class="help-block">Select data columns to be available in sort</p>'
         },
         {
           name: 'sortingOptionsSelected',

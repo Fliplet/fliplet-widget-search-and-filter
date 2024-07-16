@@ -16,7 +16,8 @@
     "dependencies": [
       "fliplet-core",
       "fliplet-datasources",
-      "fliplet-ui-typeahead"
+      "fliplet-ui-typeahead",
+      "fliplet-ui"
     ],
     "assets": [
       "css/interface.css",

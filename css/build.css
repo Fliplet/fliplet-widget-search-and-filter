@@ -79,7 +79,7 @@ fl-helper[name="search-and-filter"] .search-filter-container {
   padding: 1px;
   margin-top: 10px;
   flex: 1 0 auto;
-  width: 80px;
+  width: 50px;
 }
 
 fl-helper[name="search-and-filter"] .search-filter-container .search-input {

@@ -391,7 +391,7 @@ Fliplet.Widget.instance({
 
           searchingOptionsSelected.forEach(el => {
             orCondition.push({
-              [el]: searchValue
+              [el]: { $iLike: searchValue }
             });
           });
 

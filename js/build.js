@@ -243,27 +243,6 @@ Fliplet.Widget.instance({
           return Fliplet.ListRepeater.get().then(function(repeater) {
             let where = {};
 
-            // return Fliplet.DataSources.connectByName(
-            //   bookmarkDataSourceName
-            // ).then(function(connection) {
-            //   return connection
-            //     .find({
-            //       where: {
-            //         'Data Source Id': dataSourceId
-            //       }
-            //     })
-            //     .then(function(records) {
-            //       if (records.length) {
-            //         repeater.rows.query = where;
-            //         repeater.rows.update();
-            //       } else {
-            //         repeater.rows.query = { NoData: true }; // return no results
-            //         repeater.rows.update();
-            //       }
-            //     })
-            //     .catch(function() {});
-            // });
-
             return Fliplet.DataSources.connectByName(
               bookmarkDataSourceName
             ).then(function(connection) {
@@ -275,11 +254,8 @@ Fliplet.Widget.instance({
                 })
                 .then(function(records) {
                   if (records.length) {
-                    var ids = records.map(el => el.data['Data Source Entry Id']);
-
-                    repeater.rows = repeater.rows.filter(function(row) {
-                      return ids.includes(row.id);
-                    });
+                    repeater.rows.query.id = 363765092;
+                    repeater.rows.query = where;
                     repeater.rows.update();
                   } else {
                     repeater.rows.query = { NoData: true }; // return no results
@@ -288,6 +264,31 @@ Fliplet.Widget.instance({
                 })
                 .catch(function() {});
             });
+
+            // return Fliplet.DataSources.connectByName(
+            //   bookmarkDataSourceName
+            // ).then(function(connection) {
+            //   return connection
+            //     .find({
+            //       where: {
+            //         'Data Source Id': dataSourceId
+            //       }
+            //     })
+            //     .then(function(records) {
+            //       if (records.length) {
+            //         var ids = records.map(el => el.data['Data Source Entry Id']);
+
+            //         repeater.rows = repeater.rows.filter(function(row) {
+            //           return ids.includes(row.id);
+            //         });
+            //         repeater.rows.update();
+            //       } else {
+            //         repeater.rows.query = { NoData: true }; // return no results
+            //         repeater.rows.update();
+            //       }
+            //     })
+            //     .catch(function() {});
+            // });
           });
         }
 

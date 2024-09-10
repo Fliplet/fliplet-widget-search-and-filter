@@ -27,12 +27,8 @@ Fliplet.Widget.instance({
       var dataSourceId = null;
 
       if (Fliplet.DynamicContainer) {
-        dataSourceId = await Fliplet.DynamicContainer.get().then(function(
-          container
-        ) {
-          return container.connection().then(function(connection) {
-            return connection.id;
-          });
+        dataSourceId = await Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' } }).then(async widgets => {
+          return widgets && widgets[0] ? widgets[0].dataSourceId : null;
         });
       }
       // TODO check with product how to apply empty LFD to be rendered

@@ -275,7 +275,7 @@ Fliplet.Widget.instance({
                 })
                 .then(function(records) {
                   if (records.length) {
-                    var ids = records.map(el => el.id);
+                    var ids = records.map(el => el.data['Data Source Entry Id']);
 
                     repeater.rows = repeater.rows.filter(function(row) {
                       return ids.includes(row.id);

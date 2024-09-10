@@ -78,8 +78,8 @@ Fliplet.Widget.instance({
 
       const filterContainerPage = isFilterOnDifferentScreen
         ? filterAndSearchContainer.fields.action
-        : Fliplet.Env.get('pageId');
-      const lfdPage = Fliplet.Env.get('pageId');
+        : Fliplet.Env.get('pageMasterId');
+      const lfdPage = Fliplet.Env.get('pageMasterId');
       const flipletQuery = Fliplet.Navigate.query;
       let bookmarksEnabled
         = filterAndSearchContainer.fields.bookmarksEnabled.includes(true);

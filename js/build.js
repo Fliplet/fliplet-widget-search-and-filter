@@ -22,13 +22,12 @@ Fliplet.Widget.instance({
       </div>
     </div>
   `,
-  data: {
-    dataSourceId: null
-  },
   render: {
-    async beforeReady() {
+    ready: async function() {
+      var dataSourceId = null;
+
       if (Fliplet.DynamicContainer) {
-        this.dataSourceId = await Fliplet.DynamicContainer.get().then(function(
+        dataSourceId = await Fliplet.DynamicContainer.get().then(function(
           container
         ) {
           return container.connection().then(function(connection) {
@@ -36,8 +35,6 @@ Fliplet.Widget.instance({
           });
         });
       }
-    },
-    ready: async function() {
       // TODO check with product how to apply empty LFD to be rendered
 
       // Initialize children components when this widget is ready
@@ -255,7 +252,7 @@ Fliplet.Widget.instance({
               return connection
                 .find({
                   where: {
-                    'Data Source Id': filterAndSearchContainer.dataSourceId
+                    'Data Source Id': dataSourceId
                   }
                 })
                 .then(function(records) {

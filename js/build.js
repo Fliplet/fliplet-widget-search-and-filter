@@ -254,7 +254,7 @@ Fliplet.Widget.instance({
                 })
                 .then(function(records) {
                   if (records.length) {
-                    repeater.rows.query.id = 363765092;
+                    where.id = { $in: records.map(el => el.data['Data Source Entry Id']) };
                     repeater.rows.query = where;
                     repeater.rows.update();
                   } else {

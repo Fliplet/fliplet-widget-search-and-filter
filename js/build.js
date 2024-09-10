@@ -26,15 +26,16 @@ Fliplet.Widget.instance({
     ready: async function() {
       var dataSourceId = null;
 
-      if (Fliplet.DynamicContainer) {
-        dataSourceId = await Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' } }).then(async widgets => {
-          return widgets && widgets[0] ? widgets[0].dataSourceId : null;
-        });
-      }
       // TODO check with product how to apply empty LFD to be rendered
 
       // Initialize children components when this widget is ready
       let filterAndSearchContainer = this;
+
+      if (Fliplet.DynamicContainer) {
+        dataSourceId = await Fliplet.Widget.findParents({ instanceId: filterAndSearchContainer.id, filter: { package: 'com.fliplet.dynamic-container' } }).then(async widgets => {
+          return widgets && widgets[0] ? widgets[0].dataSourceId : null;
+        });
+      }
 
       // TODO check for list repeater here and remove all other if statements
 

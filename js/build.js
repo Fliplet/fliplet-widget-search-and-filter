@@ -278,7 +278,7 @@ Fliplet.Widget.instance({
                     var ids = records.map(el => el.id);
 
                     repeater.rows = repeater.rows.filter(function(row) {
-                      return ids.includes(row.data.id);
+                      return ids.includes(row.id);
                     });
                     repeater.rows.update();
                   } else {

@@ -238,10 +238,31 @@ Fliplet.Widget.instance({
       }
 
       function applyBookmarkedDataAndFilters() {
-        // TODO filter bookmarks data
+        // TODO filter bookmarks data by IDs
         if (Fliplet.ListRepeater) {
           return Fliplet.ListRepeater.get().then(function(repeater) {
             let where = {};
+
+            // return Fliplet.DataSources.connectByName(
+            //   bookmarkDataSourceName
+            // ).then(function(connection) {
+            //   return connection
+            //     .find({
+            //       where: {
+            //         'Data Source Id': dataSourceId
+            //       }
+            //     })
+            //     .then(function(records) {
+            //       if (records.length) {
+            //         repeater.rows.query = where;
+            //         repeater.rows.update();
+            //       } else {
+            //         repeater.rows.query = { NoData: true }; // return no results
+            //         repeater.rows.update();
+            //       }
+            //     })
+            //     .catch(function() {});
+            // });
 
             return Fliplet.DataSources.connectByName(
               bookmarkDataSourceName
@@ -254,7 +275,11 @@ Fliplet.Widget.instance({
                 })
                 .then(function(records) {
                   if (records.length) {
-                    repeater.rows.query = where;
+                    var ids = records.map(el => el.id);
+
+                    repeater.rows = repeater.rows.filter(function(row) {
+                      return ids.includes(row.data.id);
+                    });
                     repeater.rows.update();
                   } else {
                     repeater.rows.query = { NoData: true }; // return no results

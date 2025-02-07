@@ -21,14 +21,15 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
         {
           type: 'html',
           html: `<p style="color: #A5A5A5; font-size: 12px; font-weight: 400;">List from ${dataSource.name}(ID: <span class="data-source-id">${dynamicContainer.dataSourceId}</span>)</p>
-                    <p style="font-size: 10px; font-weight: 400; color: #E7961E;">To change Data source go to Data Container Settings</p>
-                    <hr/>`
+                <p style="font-size: 10px; font-weight: 400; color: #E7961E;">To change Data source go to Data Container Settings</p>
+                <hr/>`
         },
         {
           name: 'allowSearching',
           type: 'checkbox',
           label: 'List search',
-          options: [{ value: true, label: 'Allow users to search the list' }],
+          options: [{ value: true, label: 'Enable list search' }],
+          description: 'Select data columns to be available in search',
           default: [],
           change: function(value) {
             $(document).find('#searchingOptions').toggle(value.includes(true));
@@ -36,7 +37,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
           },
           ready: function() {
             let show = Fliplet.Helper.field('allowSearching').get().includes(true);
-            var value = Fliplet.Widget.getData().fields.searchingOptionsSelected || [];
+            var value = Fliplet.Widget.getData().searchingOptionsSelected || [];
 
             Fliplet.UI.Typeahead('#searchingOptions', {
               freeInput: false,
@@ -66,8 +67,8 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
         {
           type: 'html',
           html: `<div class="form-group fl-typeahead" id="searchingOptions">
-        <select placeholder="Start typing..."></select>
-      </div>`
+                  <select placeholder="Start typing..."></select>
+                </div>`
         },
         {
           type: 'html',
@@ -76,8 +77,9 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
         {
           name: 'allowSorting',
           type: 'checkbox',
-          label: 'List storting',
-          options: [{ value: true, label: 'Allow users to sort the list' }],
+          label: 'List sorting',
+          options: [{ value: true, label: 'Enable list sort' }],
+          description: 'Select data columns to be available in sort',
           default: [],
           change: function(value) {
             $(document).find('#sortingOptions').toggle(value.includes(true));
@@ -85,7 +87,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
           },
           ready: function() {
             let show = Fliplet.Helper.field('allowSorting').get().includes(true);
-            var value = Fliplet.Widget.getData().fields.sortingOptionsSelected || [];
+            var value = Fliplet.Widget.getData().sortingOptionsSelected || [];
 
             Fliplet.UI.Typeahead('#sortingOptions', {
               freeInput: false,
@@ -115,8 +117,8 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
         {
           type: 'html',
           html: `<div class="form-group fl-typeahead" id="sortingOptions">
-        <select placeholder="Start typing..."></select>
-      </div>`
+                  <select placeholder="Start typing..."></select>
+                </div>`
         },
         {
           type: 'html',
@@ -126,7 +128,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
           name: 'bookmarksEnabled',
           type: 'checkbox',
           label: 'Bookmarks',
-          options: [{ value: true, label: 'Allow users to filter by bookmarks' }],
+          options: [{ value: true, label: 'Enable list filtering by bookmarks' }],
           default: []
         },
         {
@@ -136,8 +138,9 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
         {
           name: 'isFilterOnDifferentScreen',
           type: 'checkbox',
-          label: 'Filter button',
-          options: [{ value: true, label: 'Filter is on another screen' }],
+          label: 'List filtering',
+          description: 'Note that list filter needs to be created separately: add filter container inside data container. Add form fields to create your filters.',
+          options: [{ value: true, label: 'List Filter is on another screen' }],
           default: [],
           change: function(value) {
             Fliplet.Helper.field('action').toggle(value.includes(true));
@@ -152,7 +155,14 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
           name: 'action',
           type: 'provider',
           label: 'Select a screen with filter',
-          package: 'com.fliplet.link'
+          package: 'com.fliplet.link',
+          data: function(value) {
+            return _.assign({}, value, {
+              options: {
+                actionLabel: 'Click action'
+              }
+            });
+          }
         }
       ]
     });

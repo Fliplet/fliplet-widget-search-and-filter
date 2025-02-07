@@ -22,26 +22,20 @@ Fliplet.Widget.instance({
       </div>
     </div>
   `,
-  data: {
-    dataSourceId: null
-  },
   render: {
-    async beforeReady() {
-      if (Fliplet.DynamicContainer) {
-        this.dataSourceId = await Fliplet.DynamicContainer.get().then(function(
-          container
-        ) {
-          return container.connection().then(function(connection) {
-            return connection.id;
-          });
-        });
-      }
-    },
     ready: async function() {
+      var dataSourceId = null;
+
       // TODO check with product how to apply empty LFD to be rendered
 
       // Initialize children components when this widget is ready
       let filterAndSearchContainer = this;
+
+      if (Fliplet.DynamicContainer) {
+        dataSourceId = await Fliplet.Widget.findParents({ instanceId: filterAndSearchContainer.id, filter: { package: 'com.fliplet.dynamic-container' } }).then(async widgets => {
+          return widgets && widgets[0] ? widgets[0].dataSourceId : null;
+        });
+      }
 
       // TODO check for list repeater here and remove all other if statements
 
@@ -78,8 +72,8 @@ Fliplet.Widget.instance({
 
       const filterContainerPage = isFilterOnDifferentScreen
         ? filterAndSearchContainer.fields.action
-        : Fliplet.Env.get('pageId');
-      const lfdPage = Fliplet.Env.get('pageId');
+        : Fliplet.Env.get('pageMasterId');
+      const lfdPage = Fliplet.Env.get('pageMasterId');
       const flipletQuery = Fliplet.Navigate.query;
       let bookmarksEnabled
         = filterAndSearchContainer.fields.bookmarksEnabled.includes(true);
@@ -244,7 +238,7 @@ Fliplet.Widget.instance({
       }
 
       function applyBookmarkedDataAndFilters() {
-        // TODO filter bookmarks data
+        // TODO filter bookmarks data by IDs
         if (Fliplet.ListRepeater) {
           return Fliplet.ListRepeater.get().then(function(repeater) {
             let where = {};
@@ -255,12 +249,10 @@ Fliplet.Widget.instance({
               return connection
                 .find({
                   where: {
-                    'Data Source Id': filterAndSearchContainer.dataSourceId
+                    'Data Source Id': dataSourceId
                   }
                 })
                 .then(function(records) {
-                  debugger;
-
                   if (records.length) {
                     repeater.rows.query = where;
                     repeater.rows.update();
@@ -269,16 +261,39 @@ Fliplet.Widget.instance({
                     repeater.rows.update();
                   }
                 })
-                .catch(function() {
-                  debugger;
-                });
+                .catch(function() {});
             });
+
+            // return Fliplet.DataSources.connectByName(
+            //   bookmarkDataSourceName
+            // ).then(function(connection) {
+            //   return connection
+            //     .find({
+            //       where: {
+            //         'Data Source Id': dataSourceId
+            //       }
+            //     })
+            //     .then(function(records) {
+            //       if (records.length) {
+            //         var ids = records.map(el => el.data['Data Source Entry Id']);
+
+            //         repeater.rows = repeater.rows.filter(function(row) {
+            //           return ids.includes(row.id);
+            //         });
+            //         repeater.rows.update();
+            //       } else {
+            //         repeater.rows.query = { NoData: true }; // return no results
+            //         repeater.rows.update();
+            //       }
+            //     })
+            //     .catch(function() {});
+            // });
           });
         }
 
         Fliplet.UI.Toast('Please add List Repeater component');
 
-        return Promise.reject('Please add List Repeater component');
+        return Promise.reject('');
       }
 
       function collectQuery() {
@@ -395,7 +410,7 @@ Fliplet.Widget.instance({
 
           searchingOptionsSelected.forEach(el => {
             orCondition.push({
-              [el]: searchValue
+              [el]: { $iLike: searchValue }
             });
           });
 

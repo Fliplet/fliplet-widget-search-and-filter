@@ -1,7 +1,7 @@
 // Register this widget instance
 Fliplet.Widget.instance({
   name: 'search-and-filter',
-  displayName: 'Search and filter',
+  displayName: 'Data search and filter',
   template: `
       <div class="search-container">
       <div class="search-filter-container">

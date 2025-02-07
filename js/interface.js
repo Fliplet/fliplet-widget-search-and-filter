@@ -16,7 +16,7 @@ Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' 
     });
 
     return Fliplet.Widget.generateInterface({
-      title: 'Search and filter',
+      title: 'Data search and filter',
       fields: [
         {
           type: 'html',

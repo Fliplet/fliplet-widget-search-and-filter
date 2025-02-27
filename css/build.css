@@ -1,0 +1,123 @@
+[data-widget-package="com.fliplet.search-and-filter"] {
+  width: 100%;
+}
+
+fl-helper[name="search-and-filter"] .sort-option-icon {
+  display: none;
+}
+
+fl-helper[name="search-and-filter"] .sort-option-icon.active {
+  display: block;
+}
+
+fl-helper[name="search-and-filter"] .sort-container {
+  display: inline-block;
+  position: relative;
+}
+
+fl-helper[name="search-and-filter"] .sort-container .sort-options-container {
+  min-width: 120px;
+  position: absolute;
+  background: #fff;
+  box-shadow: 0 0 14px 1px #e4e4e4;
+  border-radius: 4px;
+  right: 0;
+  top: 25px;
+  display: none;
+  z-index: 10;
+}
+
+fl-helper[name="search-and-filter"] .sort-container .sort-options-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+fl-helper[name="search-and-filter"] .sort-container .sort-options-container ul .sort-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+}
+
+fl-helper[name="search-and-filter"] .sort-container .sort-options-container ul .sort-option:hover {
+  background: #f8f8f8;
+  cursor: pointer;
+}
+
+fl-helper[name="search-and-filter"] .cursor-pointer {
+  cursor: pointer;
+}
+
+fl-helper[name="search-and-filter"] .bookmark-icon {
+  display: none;
+}
+
+fl-helper[name="search-and-filter"] .bookmark-icon.active {
+  display: inline-block;
+}
+
+fl-helper[name="search-and-filter"] .search-container {
+  user-select: none;
+  padding: 0 5px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+}
+
+fl-helper[name="search-and-filter"] .search-container .action-icons {
+  padding-top: 8px;
+}
+
+fl-helper[name="search-and-filter"] .search-container .action-icons i {
+  margin-left: 8px;
+}
+
+fl-helper[name="search-and-filter"] .search-filter-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d5d5d5;
+  border-radius: 24px;
+  padding: 1px;
+  margin-top: 10px;
+  flex: 1 0 auto;
+}
+
+fl-helper[name="search-and-filter"] .search-filter-container .search-input {
+  flex: 1 0 auto;
+  border-color: transparent;
+  height: 42px;
+  width: 50px;
+}
+
+fl-helper[name="search-and-filter"] .search-filter-container.search-input::placeholder {
+  color: #d5d5d5;
+  opacity: 1;
+}
+
+fl-helper[name="search-and-filter"] .search-input:focus {
+  border-color: transparent !important;
+  outline: none;
+}
+
+fl-helper[name="search-and-filter"] .search-input:focus-visible {
+  border-color: transparent !important;
+}
+
+fl-helper[name="search-and-filter"] .search-input:active {
+  border-color: transparent;
+}
+
+fl-helper[name="search-and-filter"] .search-button {
+  border-radius: 24px;
+  border-color: transparent;
+  background: #f2f0f0;
+  width: 80px;
+  height: 44px;
+}
+
+fl-helper[name="search-and-filter"] .fa-search {
+  padding: 0 5px;
+}

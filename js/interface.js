@@ -1,6 +1,14 @@
 Fliplet.Widget.findParents({ filter: { package: 'com.fliplet.dynamic-container' } }).then(async widgets => {
-  if (widgets.length === 0) {
-    return Fliplet.UI.Toast('This component needs to be placed inside a Dynamic Data Container');
+  if (widgets.length === 0 || !widgets[0].dataSourceId) {
+    Fliplet.Widget.generateInterface({
+      title: 'Data search and filter',
+      fields: [
+        {
+          type: 'html',
+          html: '<p style="color: #A5A5A5; font-size: 12px; font-weight: 400;">This component needs to be placed inside a Data container with selected Data source</p>'
+        }
+      ]
+    });
   }
 
   const dynamicContainer = widgets[0];

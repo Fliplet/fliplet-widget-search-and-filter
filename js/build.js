@@ -45,7 +45,7 @@ Fliplet.Widget.instance({
       );
 
       if (!Fliplet.DynamicContainer) {
-        Fliplet.UI.Toast('Please add Dynamic Container component');
+        Fliplet.UI.Toast('Please add Data Container component');
 
         return Promise.reject('');
       }

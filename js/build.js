@@ -44,7 +44,7 @@ Fliplet.Widget.instance({
         filterAndSearchContainer
       );
 
-      if (!Fliplet.DynamicContainer) {
+      if (!dataSourceId) {
         Fliplet.UI.Toast('Please add Data Container component');
 
         return Promise.reject('');

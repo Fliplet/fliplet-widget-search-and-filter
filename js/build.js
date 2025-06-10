@@ -33,7 +33,7 @@ Fliplet.Widget.instance({
       let filterAndSearchContainer = this;
 
       if (Fliplet.DynamicContainer) {
-        dataContainer = await  Fliplet.Widget.findParents({ instanceId: filterAndSearchContainer.id, filter: { package: 'com.fliplet.dynamic-container' } });
+        dataContainer = await Fliplet.Widget.findParents({ instanceId: filterAndSearchContainer.id, filter: { package: 'com.fliplet.dynamic-container' } });
         dataSourceId = dataContainer.length && dataContainer[0] ? dataContainer[0].dataSourceId : null;
       }
 

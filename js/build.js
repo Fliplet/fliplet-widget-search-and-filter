@@ -25,6 +25,7 @@ Fliplet.Widget.instance({
   render: {
     ready: async function() {
       var dataSourceId = null;
+      let dataContainer = [];
 
       // TODO check with product how to apply empty LFD to be rendered
 
@@ -32,9 +33,8 @@ Fliplet.Widget.instance({
       let filterAndSearchContainer = this;
 
       if (Fliplet.DynamicContainer) {
-        dataSourceId = await Fliplet.Widget.findParents({ instanceId: filterAndSearchContainer.id, filter: { package: 'com.fliplet.dynamic-container' } }).then(async widgets => {
-          return widgets && widgets[0] ? widgets[0].dataSourceId : null;
-        });
+        dataContainer = await Fliplet.Widget.findParents({ instanceId: filterAndSearchContainer.id, filter: { package: 'com.fliplet.dynamic-container' } });
+        dataSourceId = dataContainer.length && dataContainer[0] ? dataContainer[0].dataSourceId : null;
       }
 
       // TODO check for list repeater here and remove all other if statements
@@ -44,8 +44,12 @@ Fliplet.Widget.instance({
         filterAndSearchContainer
       );
 
-      if (!Fliplet.DynamicContainer) {
+      if (!dataContainer.length) {
         Fliplet.UI.Toast('Please add Data Container component');
+
+        return Promise.reject('');
+      } else if (dataContainer.length && !dataSourceId) {
+        Fliplet.UI.Toast('Data source not configured. Connect your Data Container to a valid data source to continue.');
 
         return Promise.reject('');
       }

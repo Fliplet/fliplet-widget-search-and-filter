@@ -54,7 +54,7 @@ Fliplet.Widget.instance({
         return Promise.reject('');
       }
 
-      filterAndSearchContainer.fields = _.assign(
+      filterAndSearchContainer.fields = Fliplet.Utils.assign(
         {
           isFilterOnDifferentScreen: [],
           action: { action: 'screen' },
@@ -341,7 +341,7 @@ Fliplet.Widget.instance({
         // END OF SORT ASC/DESC BY COLUMN
 
         // DYNAMIC PARAMETERS
-        const containsDynamicKeys = _.some(dynamicQueryValues, function(key) {
+        const containsDynamicKeys = Fliplet.Utils.some(dynamicQueryValues, function(key) {
           return flipletQuery.hasOwnProperty(key);
         });
 

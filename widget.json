@@ -16,7 +16,8 @@
     "dependencies": [
       "fliplet-core",
       "fliplet-datasources",
-      "fliplet-ui-typeahead"
+      "fliplet-ui-typeahead",
+      "lodash"
     ],
     "assets": [
       "css/interface.css",
@@ -27,6 +28,7 @@
     "dependencies": [
       "jquery",
       "bootstrap",
+      "lodash",
       "fliplet-core",
       "fliplet-helper",
       "fliplet-ui-typeahead"

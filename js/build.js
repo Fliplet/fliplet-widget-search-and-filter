@@ -67,7 +67,7 @@ Fliplet.Widget.instance({
         filterAndSearchContainer.fields
       );
 
-      const bookmarkDataSourceName = 'Global Social Actions';
+      const bookmarkDataSourceName = 'Global Data interactive icon';
 
       const isFilterOnDifferentScreen
         = filterAndSearchContainer.fields.isFilterOnDifferentScreen.includes(
@@ -222,17 +222,9 @@ Fliplet.Widget.instance({
 
         if (Fliplet.ListRepeater) {
           return Fliplet.ListRepeater.get().then(function(repeater) {
-            if (repeater.rows?.query) {
-              repeater.rows.query.where = query.where;
-
-              if (query.order) {
-                repeater.rows.query.order = query.order;
-              } else {
-                delete repeater.rows.query.order;
-              }
-
-              repeater.rows.update();
-            }
+            setTimeout(() => {
+              repeater.loadData({ additionalFilters: query.where, customSortOrder: query.order, isSearchTriggered: true });
+            }, 10);
           });
         }
 
@@ -365,10 +357,6 @@ Fliplet.Widget.instance({
                     : [];
 
                   if (columns && values && columns.length !== values.length) {
-                    console.log(
-                      'newDynamicListFilterColumn and newDynamicListFilterValue has no matching length'
-                    );
-
                     queryValue.noData = 'noData';
                     break;
                   }

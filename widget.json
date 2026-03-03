@@ -15,6 +15,7 @@
   "interface": {
     "dependencies": [
       "fliplet-core",
+      "fliplet-utils",
       "fliplet-datasources",
       "fliplet-ui-typeahead"
     ],
@@ -28,6 +29,7 @@
       "jquery",
       "bootstrap",
       "fliplet-core",
+      "fliplet-utils",
       "fliplet-helper",
       "fliplet-ui-typeahead"
     ],
